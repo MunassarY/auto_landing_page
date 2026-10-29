@@ -196,17 +196,11 @@
         </div>
       </nav>
 
-      <!-- Center Hero Typography & Call-To-Action -->
-      <div class="hero-center-content">
-        <div class="hero-live-badge">
-          <span class="pulse-dot"></span>
-          <span id="hero-live-badge">9 Gekeurde Occasions Direct Beschikbaar</span>
-        </div>
-        <h1 id="hero-title" class="hero-title-top">Occasions in Alphen.</h1>
-        <h2 class="hero-title-bottom">Gekozen Om Te Overtuigen.</h2>
-        <p class="hero-subheadline">
-          Alphen aan den Rijn — Echte kwaliteit, 100% NAP en direct zorgeloos rijden.
-        </p>
+      <!-- Accessible Screen Reader Headline -->
+      <h1 id="hero-title" class="sr-only">AAUTO'S — Occasions in Alphen aan den Rijn</h1>
+
+      <!-- Center Hero Call-To-Action (Centered Between the Two Cars) -->
+      <div class="hero-center-cta">
         <button class="hero-pill-btn" onclick="if(window.lenis){window.lenis.scrollTo('#aanbod',{offset:-30,duration:1.2})}else{document.getElementById('aanbod').scrollIntoView({behavior:'smooth'})}">
           Bekijk Occasions <span>&rarr;</span>
         </button>
