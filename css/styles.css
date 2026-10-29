@@ -243,6 +243,19 @@ img { max-width: 100%; display: block; }
   pointer-events: auto;
 }
 
+.hero-center-cta::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 320px;
+  height: 140px;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(ellipse, rgba(0, 0, 0, 0.6) 0%, transparent 70%);
+  z-index: -1;
+  pointer-events: none;
+}
+
 .hero-pill-btn {
   display: inline-flex;
   align-items: center;
@@ -281,16 +294,16 @@ img { max-width: 100%; display: block; }
   overflow: hidden;
 }
 
-/* Ambient ground shadow */
+/* Ambient depth and ground shadow */
 .hero-cars-stage::before {
   content: "";
   position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 140px;
-  background: radial-gradient(ellipse at 50% 100%, rgba(15, 23, 42, 0.45) 0%, transparent 75%);
+  inset: 0;
+  background: 
+    radial-gradient(ellipse at 50% 50%, rgba(0, 0, 0, 0.4) 0%, transparent 68%),
+    radial-gradient(ellipse at 50% 100%, rgba(10, 14, 23, 0.75) 0%, transparent 75%);
   z-index: 2;
+  pointer-events: none;
 }
 
 .hero-car {
@@ -298,7 +311,8 @@ img { max-width: 100%; display: block; }
   top: 0;
   bottom: 0;
   height: 100%;
-  width: 55%;
+  width: 48%;
+  max-width: 820px;
   will-change: transform, opacity;
   transition: transform 0.15s cubic-bezier(0.2, 0, 0.2, 1);
   display: flex;
@@ -310,25 +324,27 @@ img { max-width: 100%; display: block; }
   height: 100%;
   object-fit: cover;
   object-position: center bottom;
-  filter: drop-shadow(0 25px 35px rgba(15, 23, 42, 0.4));
+  filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.75)) drop-shadow(0 0 25px rgba(0, 0, 0, 0.5));
 }
 
 /* Left Car: White Golf Cabriolet facing center */
 .hero-car-left {
-  left: 0;
+  left: -20px;
   transform: translate3d(calc(var(--car-l-x, 0px) + var(--scroll-car-l, 0px)), var(--car-l-y, 0px), 0) rotateY(var(--car-l-rot, 0deg));
   opacity: var(--car-l-opacity, 1);
-  mask-image: linear-gradient(to right, black 65%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to right, black 65%, transparent 100%);
+  mask-image: linear-gradient(to right, black 52%, transparent 92%);
+  -webkit-mask-image: linear-gradient(to right, black 52%, transparent 92%);
 }
 
-/* Right Car: Grey Volvo XC60 facing center */
+/* Right Car: Grey Volvo XC60 facing center (lowered by 70px to align stage level with Golf) */
 .hero-car-right {
-  right: 0;
-  transform: translate3d(calc(var(--car-r-x, 0px) + var(--scroll-car-r, 0px)), var(--car-r-y, 0px), 0) rotateY(var(--car-r-rot, 0deg));
+  right: -20px;
+  top: -10px;
+  height: calc(100% + 70px);
+  transform: translate3d(calc(var(--car-r-x, 0px) + var(--scroll-car-r, 0px)), calc(var(--car-r-y, 0px) + 70px), 0) rotateY(var(--car-r-rot, 0deg));
   opacity: var(--car-r-opacity, 1);
-  mask-image: linear-gradient(to left, black 65%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to left, black 65%, transparent 100%);
+  mask-image: linear-gradient(to left, black 52%, transparent 92%);
+  -webkit-mask-image: linear-gradient(to left, black 52%, transparent 92%);
 }
 
 /* ==========================================================================
@@ -1435,9 +1451,13 @@ dialog#cmp::backdrop {
   .hero-royal-stage { padding: 0; }
   .hero-royal-box { min-height: 75vh; border-radius: 0; }
   .hero-cars-stage { height: 100%; }
-  .hero-car { width: 64%; }
-  .hero-car-left { left: -20px; }
-  .hero-car-right { right: -20px; }
+  .hero-car { width: 58%; }
+  .hero-car-left { left: -30px; }
+  .hero-car-right { 
+    right: -30px; 
+    height: calc(100% + 40px);
+    transform: translate3d(calc(var(--car-r-x, 0px) + var(--scroll-car-r, 0px)), calc(var(--car-r-y, 0px) + 40px), 0) rotateY(var(--car-r-rot, 0deg));
+  }
   .hero-pill-btn { padding: 14px 28px; font-size: 15px; }
 }
 
