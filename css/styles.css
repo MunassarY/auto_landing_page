@@ -1656,7 +1656,8 @@ dialog#cmp::backdrop {
 }
 
 #rpm-progress {
-  stroke: url(#rpmGrad, #3b82f6);
+  stroke: #3b82f6;
+  stroke: url(#rpmGrad);
   filter: drop-shadow(0 0 8px rgba(59, 130, 246, 0.6));
 }
 
