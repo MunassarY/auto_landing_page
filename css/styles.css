@@ -123,18 +123,20 @@ img { max-width: 100%; display: block; }
    RoyalCar Hero Section Frame with 3D Parallax & Spotlight
    ========================================================================== */
 .hero-royal-stage {
-  padding: 16px 16px 0;
-  max-width: 1440px;
-  margin: 0 auto;
+  padding: 0;
+  max-width: 100%;
+  width: 100%;
+  margin: 0;
 }
 
 .hero-royal-box {
   position: relative;
-  min-height: min(92vh, 820px);
+  width: 100%;
+  min-height: 100vh;
   background: radial-gradient(circle at 50% 25%, var(--hero-bg-top) 0%, var(--hero-bg-mid) 50%, var(--hero-bg-bottom) 100%);
-  border-radius: var(--radius-xl);
-  border: 1px solid rgba(255, 255, 255, 0.9);
-  box-shadow: 0 20px 60px -15px rgba(0, 0, 0, 0.35);
+  border-radius: 0;
+  border: none;
+  box-shadow: none;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -297,7 +299,6 @@ img { max-width: 100%; display: block; }
   bottom: 0;
   height: 100%;
   width: 55%;
-  max-width: 860px;
   will-change: transform, opacity;
   transition: transform 0.15s cubic-bezier(0.2, 0, 0.2, 1);
   display: flex;
@@ -1431,8 +1432,8 @@ dialog#cmp::backdrop {
 }
 
 @media (max-width: 600px) {
-  .hero-royal-stage { padding: 8px 8px 0; }
-  .hero-royal-box { min-height: 480px; border-radius: 20px; }
+  .hero-royal-stage { padding: 0; }
+  .hero-royal-box { min-height: 75vh; border-radius: 0; }
   .hero-cars-stage { height: 100%; }
   .hero-car { width: 64%; }
   .hero-car-left { left: -20px; }
