@@ -133,7 +133,7 @@ img { max-width: 100%; display: block; }
   position: relative;
   width: 100%;
   min-height: 100vh;
-  background: #0b0f17;
+  background: #0b0d12;
   border-radius: 0;
   border: none;
   box-shadow: none;
@@ -142,7 +142,7 @@ img { max-width: 100%; display: block; }
   justify-content: space-between;
   align-items: center;
   overflow: hidden;
-  perspective: 1200px;
+  perspective: 1400px;
   transform-style: preserve-3d;
 }
 
@@ -264,102 +264,147 @@ img { max-width: 100%; display: block; }
   border-color: rgba(255, 255, 255, 0.5);
 }
 
-/* Two Cars Framing Composition - Seamless Transparent Panoramic Blend */
+/* Two Cars Framing Composition - Full-Width Stacked Layers with Seamless Dark Center */
 .hero-cars-stage {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   pointer-events: none;
-  z-index: 5;
+  z-index: 2;
   overflow: hidden;
+  perspective: 1400px;
 }
 
 .hero-car {
   position: absolute;
-  top: 0;
-  bottom: 0;
-  height: 100%;
-  width: 57%;
-  will-change: transform, opacity;
-  transition: transform 0.15s cubic-bezier(0.2, 0, 0.2, 1);
-  overflow: hidden;
-}
-
-.hero-car img {
+  inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  object-position: center;
-  display: block;
+  pointer-events: none;
+  overflow: hidden;
+  will-change: transform;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  transform-style: preserve-3d;
 }
 
-/* Left Car: White Golf Cabriolet facing center */
+.hero-car-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  min-height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: contrast(1.08) saturate(1.05) brightness(0.95);
+  will-change: transform;
+}
+
+/* Left Car: White Golf Cabriolet */
 .hero-car-left {
-  left: 0;
-  transform: translate3d(calc(var(--car-l-x, 0px) + var(--scroll-car-l, 0px)), var(--car-l-y, 0px), 0) rotateY(var(--car-l-rot, 0deg));
-  opacity: var(--car-l-opacity, 1);
+  transform-origin: center bottom;
+  transform: translate3d(var(--car-l-x, 0px), var(--car-l-y, 0px), 0) rotateY(calc(4deg + var(--car-l-rot, 0deg)));
   mask-image: linear-gradient(to right,
     #000 0%,
-    #000 68%,
-    rgba(0, 0, 0, 0.96) 73%,
-    rgba(0, 0, 0, 0.86) 78%,
-    rgba(0, 0, 0, 0.70) 83%,
-    rgba(0, 0, 0, 0.50) 88%,
-    rgba(0, 0, 0, 0.30) 93%,
-    rgba(0, 0, 0, 0.12) 97%,
-    transparent 100%
+    #000 24%,
+    rgba(0, 0, 0, 0.90) 30%,
+    rgba(0, 0, 0, 0.65) 36%,
+    rgba(0, 0, 0, 0.35) 41%,
+    rgba(0, 0, 0, 0.10) 45%,
+    transparent 48%
   );
   -webkit-mask-image: linear-gradient(to right,
     #000 0%,
-    #000 68%,
-    rgba(0, 0, 0, 0.96) 73%,
-    rgba(0, 0, 0, 0.86) 78%,
-    rgba(0, 0, 0, 0.70) 83%,
-    rgba(0, 0, 0, 0.50) 88%,
-    rgba(0, 0, 0, 0.30) 93%,
-    rgba(0, 0, 0, 0.12) 97%,
-    transparent 100%
+    #000 24%,
+    rgba(0, 0, 0, 0.90) 30%,
+    rgba(0, 0, 0, 0.65) 36%,
+    rgba(0, 0, 0, 0.35) 41%,
+    rgba(0, 0, 0, 0.10) 45%,
+    transparent 48%
   );
 }
 
-.hero-car-left img {
-  transform: scale(1.06) translateY(0.5%);
-  transform-origin: center;
+.hero-car-left .hero-car-img {
+  object-position: 18% bottom;
+  transform: scale(1.05) translateX(-6%) translateY(0%);
+  transform-origin: left bottom;
 }
 
-/* Right Car: Dark Grey Volvo XC60 facing center */
+/* Right Car: Dark Grey Volvo XC60 */
 .hero-car-right {
-  right: 0;
-  transform: translate3d(calc(var(--car-r-x, 0px) + var(--scroll-car-r, 0px)), var(--car-r-y, 0px), 0) rotateY(var(--car-r-rot, 0deg));
-  opacity: var(--car-r-opacity, 1);
+  transform-origin: center bottom;
+  transform: translate3d(var(--car-r-x, 0px), var(--car-r-y, 0px), 0) rotateY(calc(-4deg + var(--car-r-rot, 0deg)));
   mask-image: linear-gradient(to left,
     #000 0%,
-    #000 68%,
-    rgba(0, 0, 0, 0.96) 73%,
-    rgba(0, 0, 0, 0.86) 78%,
-    rgba(0, 0, 0, 0.70) 83%,
-    rgba(0, 0, 0, 0.50) 88%,
-    rgba(0, 0, 0, 0.30) 93%,
-    rgba(0, 0, 0, 0.12) 97%,
-    transparent 100%
+    #000 24%,
+    rgba(0, 0, 0, 0.90) 30%,
+    rgba(0, 0, 0, 0.65) 36%,
+    rgba(0, 0, 0, 0.35) 41%,
+    rgba(0, 0, 0, 0.10) 45%,
+    transparent 48%
   );
   -webkit-mask-image: linear-gradient(to left,
     #000 0%,
-    #000 68%,
-    rgba(0, 0, 0, 0.96) 73%,
-    rgba(0, 0, 0, 0.86) 78%,
-    rgba(0, 0, 0, 0.70) 83%,
-    rgba(0, 0, 0, 0.50) 88%,
-    rgba(0, 0, 0, 0.30) 93%,
-    rgba(0, 0, 0, 0.12) 97%,
-    transparent 100%
+    #000 24%,
+    rgba(0, 0, 0, 0.90) 30%,
+    rgba(0, 0, 0, 0.65) 36%,
+    rgba(0, 0, 0, 0.35) 41%,
+    rgba(0, 0, 0, 0.10) 45%,
+    transparent 48%
   );
 }
 
-.hero-car-right img {
-  transform: scale(0.92) translateY(-4.4%);
-  transform-origin: center;
+.hero-car-right .hero-car-img {
+  object-position: 90% bottom;
+  transform: scale(1.05) translateX(8%) translateY(3.2%);
+  transform-origin: right bottom;
+}
+
+/* Soft Contact Shadows Under Wheels */
+.car-shadow {
+  position: absolute;
+  bottom: 12%;
+  width: 34%;
+  max-width: 480px;
+  height: 55px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.55) 0%, transparent 70%);
+  filter: blur(18px);
+  pointer-events: none;
+  z-index: 3;
+}
+
+.shadow-left {
+  left: 6%;
+}
+
+.shadow-right {
+  right: 6%;
+}
+
+/* Subtle Hero Vignette */
+.hero-vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, transparent 50%, rgba(0, 0, 0, 0.45) 100%);
+  z-index: 8;
+  pointer-events: none;
+}
+
+/* Bottom Dark Gradient (Hides Watermarks & Provides Solid Dock Foundation) */
+.hero-bottom-gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, 
+    #0b0d12 0%, 
+    #0b0d12 13%, 
+    rgba(11, 13, 18, 0.94) 18%, 
+    rgba(11, 13, 18, 0.65) 25%, 
+    rgba(11, 13, 18, 0.25) 32%, 
+    transparent 38%
+  );
+  z-index: 10;
+  pointer-events: none;
 }
 
 /* ==========================================================================
@@ -1434,9 +1479,15 @@ dialog#cmp::backdrop {
 @media (max-width: 960px) {
   .royal-links { display: none; }
   .menu-btn { display: block; }
-  .hero-royal-box { min-height: 580px; }
+  .hero-royal-box { min-height: 640px; }
   .hero-cars-stage { height: 100%; }
-  .hero-car { width: 58%; }
+  .hero-car-left {
+    transform: translate3d(calc(var(--car-l-x, 0px) - 3%), var(--car-l-y, 0px), 0) scale(0.96) rotateY(2deg);
+  }
+  .hero-car-right {
+    transform: translate3d(calc(var(--car-r-x, 0px) + 3%), var(--car-r-y, 0px), 0) scale(0.96) rotateY(-2deg);
+  }
+  .car-shadow { height: 50px; bottom: 7%; }
   .search-dock { grid-template-columns: 1fr; }
   .search-dock-wrapper { margin-top: 20px; }
   .bento-cat-grid { grid-template-columns: 1fr; }
@@ -1463,12 +1514,31 @@ dialog#cmp::backdrop {
 }
 
 @media (max-width: 600px) {
+  .royal-nav { padding: 16px 20px; }
+  .royal-brand { font-size: 19px; }
+  .royal-nav-btn { padding: 8px 16px; font-size: 13px; }
   .hero-royal-stage { padding: 0; }
   .hero-royal-box { min-height: 75vh; border-radius: 0; }
   .hero-cars-stage { height: 100%; }
-  .hero-car { width: 57%; }
-  .hero-car-left { left: 0; }
-  .hero-car-right { right: 0; }
+  .hero-car-left {
+    transform: translate3d(-3%, 0, 0) scale(1) rotateY(0deg);
+    mask-image: linear-gradient(to right, #000 0%, #000 24%, rgba(0,0,0,0.6) 38%, transparent 50%);
+    -webkit-mask-image: linear-gradient(to right, #000 0%, #000 24%, rgba(0,0,0,0.6) 38%, transparent 50%);
+  }
+  .hero-car-right {
+    transform: translate3d(3%, 0, 0) scale(1) rotateY(0deg);
+    mask-image: linear-gradient(to left, #000 0%, #000 24%, rgba(0,0,0,0.6) 38%, transparent 50%);
+    -webkit-mask-image: linear-gradient(to left, #000 0%, #000 24%, rgba(0,0,0,0.6) 38%, transparent 50%);
+  }
+  .hero-car-left .hero-car-img { 
+    object-position: 18% 74%; 
+    transform: scale(1.04) translateX(-2%) translateY(0%);
+  }
+  .hero-car-right .hero-car-img { 
+    object-position: 86% 78%; 
+    transform: scale(1.04) translateX(2%) translateY(2%);
+  }
+  .car-shadow { display: none; }
   .hero-pill-btn { padding: 14px 28px; font-size: 15px; }
 }
 

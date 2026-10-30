@@ -208,15 +208,26 @@
 
       <!-- Symmetrical Two-Cars Framing Stage -->
       <div class="hero-cars-stage">
-        <!-- Car 1 (Left): Volkswagen Golf Cabriolet facing center -->
+        <!-- Car 1 (Left): Full-width layer masked to left -->
         <div class="hero-car hero-car-left">
-          <img src="assets/cars/golf-cabrio.jpg" alt="Volkswagen Golf Cabriolet AAUTO'S" />
+          <img class="hero-car-img" src="assets/cars/golf-cabrio.jpg" alt="Volkswagen Golf Cabriolet AAUTO'S" />
         </div>
-        <!-- Car 2 (Right): Volvo XC60 facing center -->
+
+        <!-- Car 2 (Right): Full-width layer masked to right -->
         <div class="hero-car hero-car-right">
-          <img src="assets/cars/volvo-left.jpg" alt="Volvo XC60 Momentum AWD AAUTO'S" />
+          <img class="hero-car-img" src="assets/cars/volvo-left.jpg" alt="Volvo XC60 Momentum AWD AAUTO'S" />
         </div>
+
+        <!-- Soft Contact Shadows under each car -->
+        <div class="car-shadow shadow-left" aria-hidden="true"></div>
+        <div class="car-shadow shadow-right" aria-hidden="true"></div>
       </div>
+
+      <!-- Subtle Vignette Layer -->
+      <div class="hero-vignette" aria-hidden="true"></div>
+
+      <!-- Bottom Dark Gradient (hides watermarks & grounds search bar) -->
+      <div class="hero-bottom-gradient" aria-hidden="true"></div>
     </section>
   </div>
 

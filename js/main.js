@@ -59,6 +59,7 @@ function initCockpitStartup() {
     if (isComplete) return;
     isComplete = true;
     preloader.classList.add("is-loaded");
+    setTimeout(() => { preloader.style.display = "none"; }, 850);
   }
 
   if (skipBtn) skipBtn.onclick = finish;
