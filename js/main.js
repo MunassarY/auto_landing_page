@@ -569,47 +569,7 @@ if (trayGo) {
 
 // ---- Hero 3D Mouse Parallax & Spotlight Follower ----
 function initHeroParallax() {
-  const box = document.querySelector(".hero-royal-box");
-  if (!box) return;
-
-  box.addEventListener("mousemove", e => {
-    const rect = box.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    const normX = (x / rect.width) * 2 - 1; // -1 to +1
-    const normY = (y / rect.height) * 2 - 1; // -1 to +1
-
-    // Spotlight gradient follow
-    box.style.setProperty("--mouse-x", `${((x / rect.width) * 100).toFixed(1)}%`);
-    box.style.setProperty("--mouse-y", `${((y / rect.height) * 100).toFixed(1)}%`);
-
-    // Subtle typography opposing drift
-    box.style.setProperty("--text-parallax-x", `${(-normX * 8).toFixed(1)}px`);
-    box.style.setProperty("--text-parallax-y", `${(-normY * 6).toFixed(1)}px`);
-
-    // Left car facing right (Volkswagen Golf Cabriolet)
-    box.style.setProperty("--car-l-x", `${(normX * 12).toFixed(1)}px`);
-    box.style.setProperty("--car-l-y", `${(normY * 6).toFixed(1)}px`);
-    box.style.setProperty("--car-l-rot", `${(normX * 2.5).toFixed(1)}deg`);
-
-    // Right car facing left (Volvo XC60)
-    box.style.setProperty("--car-r-x", `${(-normX * 12).toFixed(1)}px`);
-    box.style.setProperty("--car-r-y", `${(-normY * 6).toFixed(1)}px`);
-    box.style.setProperty("--car-r-rot", `${(-normX * 2.5).toFixed(1)}deg`);
-  });
-
-  box.addEventListener("mouseleave", () => {
-    box.style.setProperty("--mouse-x", "50%");
-    box.style.setProperty("--mouse-y", "35%");
-    box.style.setProperty("--text-parallax-x", "0px");
-    box.style.setProperty("--text-parallax-y", "0px");
-    box.style.setProperty("--car-l-x", "0px");
-    box.style.setProperty("--car-l-y", "0px");
-    box.style.setProperty("--car-l-rot", "0deg");
-    box.style.setProperty("--car-r-x", "0px");
-    box.style.setProperty("--car-r-y", "0px");
-    box.style.setProperty("--car-r-rot", "0deg");
-  });
+  // Parallax on hero cars removed
 }
 
 // ---- Interactive 64-Point Inspection Tabs ----
@@ -867,22 +827,7 @@ if (typeof Lenis !== "undefined") {
     });
   });
 
-  // Cinematic dual-cars scroll ejection
-  const heroBox = document.querySelector(".hero-royal-box");
-  lenis.on("scroll", e => {
-    const scrollY = e.animatedScroll || window.scrollY || 0;
-    if (heroBox && scrollY <= 650) {
-      const p = Math.min(1, scrollY / 420);
-      const ejectL = -p * 85;
-      const ejectR = p * 85;
-      const op = Math.max(0.2, 1 - p * 0.7);
-
-      heroBox.style.setProperty("--scroll-car-l", `${ejectL.toFixed(1)}px`);
-      heroBox.style.setProperty("--scroll-car-r", `${ejectR.toFixed(1)}px`);
-      heroBox.style.setProperty("--car-l-opacity", `${op.toFixed(2)}`);
-      heroBox.style.setProperty("--car-r-opacity", `${op.toFixed(2)}`);
-    }
-  });
+  // Lenis scroll listener
 }
 
 // ---- Initialize All Systems ----

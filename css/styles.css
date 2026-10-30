@@ -142,8 +142,19 @@ img { max-width: 100%; display: block; }
   justify-content: space-between;
   align-items: center;
   overflow: hidden;
-  perspective: 1400px;
-  transform-style: preserve-3d;
+}
+
+/* Subtle Top Gradient Behind Navbar for Readability */
+.hero-royal-box::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 120px;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.45) 0%, transparent 120px);
+  z-index: 10;
+  pointer-events: none;
 }
 
 /* Ambient Specular Spotlight Follower */
@@ -168,8 +179,9 @@ img { max-width: 100%; display: block; }
   gap: 8px;
   font-size: 22px;
   font-weight: 800;
-  color: var(--hero-text-dark);
+  color: #FFFFFF;
   letter-spacing: -0.03em;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
 }
 
 .royal-slashes {
@@ -188,29 +200,30 @@ img { max-width: 100%; display: block; }
 .royal-links a {
   font-size: 15px;
   font-weight: 600;
-  color: var(--hero-text-muted);
+  color: rgba(255, 255, 255, 0.9);
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
   transition: color 0.18s ease;
 }
 
 .royal-links a:hover {
-  color: var(--hero-text-dark);
+  color: #FFFFFF;
 }
 
 .royal-nav-btn {
   background: #FFFFFF;
-  color: var(--hero-text-dark);
-  border: 1px solid rgba(15, 23, 42, 0.12);
+  color: #0F172A;
+  border: 1px solid rgba(255, 255, 255, 0.2);
   padding: 10px 22px;
   border-radius: var(--radius-full);
   font-weight: 700;
   font-size: 14px;
-  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.08);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
   transition: all 0.2s ease;
 }
 
 .royal-nav-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.15);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
   background: #F8FAFC;
 }
 
@@ -231,7 +244,7 @@ img { max-width: 100%; display: block; }
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(calc(-50% + var(--text-parallax-x, 0px)), calc(-50% + var(--text-parallax-y, 0px)));
+  transform: translate(-50%, -50%);
   z-index: 25;
   text-align: center;
   pointer-events: auto;
@@ -264,7 +277,7 @@ img { max-width: 100%; display: block; }
   border-color: rgba(255, 255, 255, 0.5);
 }
 
-/* Two Cars Framing Composition - Full-Width Stacked Layers with Seamless Dark Center */
+/* Two Cars Side-by-Side (50% / 50%) - Simple Layout & Smooth Fade Between */
 .hero-cars-stage {
   position: absolute;
   inset: 0;
@@ -273,138 +286,38 @@ img { max-width: 100%; display: block; }
   pointer-events: none;
   z-index: 2;
   overflow: hidden;
-  perspective: 1400px;
 }
 
 .hero-car {
   position: absolute;
-  inset: 0;
-  width: 100%;
+  top: 0;
+  bottom: 0;
+  width: 50%;
   height: 100%;
   pointer-events: none;
   overflow: hidden;
-  will-change: transform;
-  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-  transform-style: preserve-3d;
+}
+
+/* Left Car: White Golf Cabriolet (fills left 50%) */
+.hero-car-left {
+  left: 0;
+  mask-image: linear-gradient(to right, #000 0%, #000 85%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, #000 0%, #000 85%, transparent 100%);
+}
+
+/* Right Car: Dark Grey Volvo XC60 (fills right 50%) */
+.hero-car-right {
+  right: 0;
+  mask-image: linear-gradient(to left, #000 0%, #000 85%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to left, #000 0%, #000 85%, transparent 100%);
 }
 
 .hero-car-img {
-  position: absolute;
-  inset: 0;
   width: 100%;
   height: 100%;
-  min-height: 100%;
   object-fit: cover;
+  object-position: center bottom;
   display: block;
-  filter: contrast(1.08) saturate(1.05) brightness(0.95);
-  will-change: transform;
-}
-
-/* Left Car: White Golf Cabriolet */
-.hero-car-left {
-  transform-origin: center bottom;
-  transform: translate3d(var(--car-l-x, 0px), var(--car-l-y, 0px), 0) rotateY(calc(4deg + var(--car-l-rot, 0deg)));
-  mask-image: linear-gradient(to right,
-    #000 0%,
-    #000 24%,
-    rgba(0, 0, 0, 0.90) 30%,
-    rgba(0, 0, 0, 0.65) 36%,
-    rgba(0, 0, 0, 0.35) 41%,
-    rgba(0, 0, 0, 0.10) 45%,
-    transparent 48%
-  );
-  -webkit-mask-image: linear-gradient(to right,
-    #000 0%,
-    #000 24%,
-    rgba(0, 0, 0, 0.90) 30%,
-    rgba(0, 0, 0, 0.65) 36%,
-    rgba(0, 0, 0, 0.35) 41%,
-    rgba(0, 0, 0, 0.10) 45%,
-    transparent 48%
-  );
-}
-
-.hero-car-left .hero-car-img {
-  object-position: 18% bottom;
-  transform: scale(1.05) translateX(-6%) translateY(0%);
-  transform-origin: left bottom;
-}
-
-/* Right Car: Dark Grey Volvo XC60 */
-.hero-car-right {
-  transform-origin: center bottom;
-  transform: translate3d(var(--car-r-x, 0px), var(--car-r-y, 0px), 0) rotateY(calc(-4deg + var(--car-r-rot, 0deg)));
-  mask-image: linear-gradient(to left,
-    #000 0%,
-    #000 24%,
-    rgba(0, 0, 0, 0.90) 30%,
-    rgba(0, 0, 0, 0.65) 36%,
-    rgba(0, 0, 0, 0.35) 41%,
-    rgba(0, 0, 0, 0.10) 45%,
-    transparent 48%
-  );
-  -webkit-mask-image: linear-gradient(to left,
-    #000 0%,
-    #000 24%,
-    rgba(0, 0, 0, 0.90) 30%,
-    rgba(0, 0, 0, 0.65) 36%,
-    rgba(0, 0, 0, 0.35) 41%,
-    rgba(0, 0, 0, 0.10) 45%,
-    transparent 48%
-  );
-}
-
-.hero-car-right .hero-car-img {
-  object-position: 90% bottom;
-  transform: scale(1.05) translateX(8%) translateY(3.2%);
-  transform-origin: right bottom;
-}
-
-/* Soft Contact Shadows Under Wheels */
-.car-shadow {
-  position: absolute;
-  bottom: 12%;
-  width: 34%;
-  max-width: 480px;
-  height: 55px;
-  border-radius: 50%;
-  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.55) 0%, transparent 70%);
-  filter: blur(18px);
-  pointer-events: none;
-  z-index: 3;
-}
-
-.shadow-left {
-  left: 6%;
-}
-
-.shadow-right {
-  right: 6%;
-}
-
-/* Subtle Hero Vignette */
-.hero-vignette {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(ellipse at center, transparent 50%, rgba(0, 0, 0, 0.45) 100%);
-  z-index: 8;
-  pointer-events: none;
-}
-
-/* Bottom Dark Gradient (Hides Watermarks & Provides Solid Dock Foundation) */
-.hero-bottom-gradient {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to top, 
-    #0b0d12 0%, 
-    #0b0d12 13%, 
-    rgba(11, 13, 18, 0.94) 18%, 
-    rgba(11, 13, 18, 0.65) 25%, 
-    rgba(11, 13, 18, 0.25) 32%, 
-    transparent 38%
-  );
-  z-index: 10;
-  pointer-events: none;
 }
 
 /* ==========================================================================
@@ -1479,15 +1392,9 @@ dialog#cmp::backdrop {
 @media (max-width: 960px) {
   .royal-links { display: none; }
   .menu-btn { display: block; }
-  .hero-royal-box { min-height: 640px; }
+  .hero-royal-box { min-height: 600px; }
   .hero-cars-stage { height: 100%; }
-  .hero-car-left {
-    transform: translate3d(calc(var(--car-l-x, 0px) - 3%), var(--car-l-y, 0px), 0) scale(0.96) rotateY(2deg);
-  }
-  .hero-car-right {
-    transform: translate3d(calc(var(--car-r-x, 0px) + 3%), var(--car-r-y, 0px), 0) scale(0.96) rotateY(-2deg);
-  }
-  .car-shadow { height: 50px; bottom: 7%; }
+  .hero-car { width: 50%; }
   .search-dock { grid-template-columns: 1fr; }
   .search-dock-wrapper { margin-top: 20px; }
   .bento-cat-grid { grid-template-columns: 1fr; }
@@ -1518,27 +1425,10 @@ dialog#cmp::backdrop {
   .royal-brand { font-size: 19px; }
   .royal-nav-btn { padding: 8px 16px; font-size: 13px; }
   .hero-royal-stage { padding: 0; }
-  .hero-royal-box { min-height: 75vh; border-radius: 0; }
+  .hero-royal-box { min-height: 70vh; border-radius: 0; }
   .hero-cars-stage { height: 100%; }
-  .hero-car-left {
-    transform: translate3d(-3%, 0, 0) scale(1) rotateY(0deg);
-    mask-image: linear-gradient(to right, #000 0%, #000 24%, rgba(0,0,0,0.6) 38%, transparent 50%);
-    -webkit-mask-image: linear-gradient(to right, #000 0%, #000 24%, rgba(0,0,0,0.6) 38%, transparent 50%);
-  }
-  .hero-car-right {
-    transform: translate3d(3%, 0, 0) scale(1) rotateY(0deg);
-    mask-image: linear-gradient(to left, #000 0%, #000 24%, rgba(0,0,0,0.6) 38%, transparent 50%);
-    -webkit-mask-image: linear-gradient(to left, #000 0%, #000 24%, rgba(0,0,0,0.6) 38%, transparent 50%);
-  }
-  .hero-car-left .hero-car-img { 
-    object-position: 18% 74%; 
-    transform: scale(1.04) translateX(-2%) translateY(0%);
-  }
-  .hero-car-right .hero-car-img { 
-    object-position: 86% 78%; 
-    transform: scale(1.04) translateX(2%) translateY(2%);
-  }
-  .car-shadow { display: none; }
+  .hero-car { width: 50%; }
+  .hero-car-img { object-position: center bottom; }
   .hero-pill-btn { padding: 14px 28px; font-size: 15px; }
 }
 
