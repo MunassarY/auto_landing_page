@@ -133,7 +133,9 @@ img { max-width: 100%; display: block; }
   position: relative;
   width: 100%;
   min-height: 100vh;
-  background: #0b0d12;
+  background: 
+    radial-gradient(ellipse at 50% 85%, rgba(255, 255, 255, 0.95) 0%, transparent 60%),
+    linear-gradient(180deg, #dff1f5 0%, #c9e6ee 55%, #eef8fb 100%);
   border-radius: 0;
   border: none;
   box-shadow: none;
@@ -144,17 +146,22 @@ img { max-width: 100%; display: block; }
   overflow: hidden;
 }
 
-/* Subtle Top Gradient Behind Navbar for Readability */
-.hero-royal-box::before {
+/* Subtle Glossy Floor (Bottom 25% Soft White-to-Transparent Sheen) */
+.hero-royal-box::after {
   content: "";
   position: absolute;
-  top: 0;
   left: 0;
   right: 0;
-  height: 120px;
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.45) 0%, transparent 120px);
-  z-index: 10;
+  bottom: 0;
+  height: 25%;
+  background: linear-gradient(to top, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.2) 50%, transparent 100%);
   pointer-events: none;
+  z-index: 1;
+}
+
+/* Subtle Top Gradient Behind Navbar (Disabled on Light Studio Background) */
+.hero-royal-box::before {
+  display: none;
 }
 
 /* Ambient Specular Spotlight Follower */
@@ -179,9 +186,9 @@ img { max-width: 100%; display: block; }
   gap: 8px;
   font-size: 22px;
   font-weight: 800;
-  color: #FFFFFF;
+  color: #0F172A;
   letter-spacing: -0.03em;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  text-shadow: none;
 }
 
 .royal-slashes {
@@ -200,30 +207,30 @@ img { max-width: 100%; display: block; }
 .royal-links a {
   font-size: 15px;
   font-weight: 600;
-  color: rgba(255, 255, 255, 0.9);
-  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+  color: #334155;
+  text-shadow: none;
   transition: color 0.18s ease;
 }
 
 .royal-links a:hover {
-  color: #FFFFFF;
+  color: #0F172A;
 }
 
 .royal-nav-btn {
   background: #FFFFFF;
   color: #0F172A;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(15, 23, 42, 0.12);
   padding: 10px 22px;
   border-radius: var(--radius-full);
   font-weight: 700;
   font-size: 14px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.08);
   transition: all 0.2s ease;
 }
 
 .royal-nav-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.14);
   background: #F8FAFC;
 }
 
@@ -277,7 +284,7 @@ img { max-width: 100%; display: block; }
   border-color: rgba(255, 255, 255, 0.5);
 }
 
-/* Two Cars Side-by-Side (50% / 50%) - Simple Layout & Smooth Fade Between */
+/* Two Cars Studio Framing - Transparent Cutouts on Same Baseline */
 .hero-cars-stage {
   position: absolute;
   inset: 0;
@@ -290,33 +297,44 @@ img { max-width: 100%; display: block; }
 
 .hero-car {
   position: absolute;
-  top: 0;
   bottom: 0;
-  width: 50%;
+  width: 48%;
   height: 100%;
   pointer-events: none;
-  overflow: hidden;
 }
 
-/* Left Car: White Golf Cabriolet (fills left 50%) */
+/* Soft Contact Shadow under wheels */
+.car-shadow {
+  position: absolute;
+  bottom: -4px;
+  left: 6%;
+  right: 6%;
+  height: 24px;
+  background: radial-gradient(ellipse at center, rgba(15, 23, 42, 0.95) 0%, rgba(15, 23, 42, 0.55) 42%, transparent 72%);
+  border-radius: 50%;
+  filter: blur(8px);
+  opacity: 0.35;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Left Car: VW (anchored to left, partially cropped by hero edge) */
 .hero-car-left {
-  left: 0;
-  mask-image: linear-gradient(to right, #000 0%, #000 85%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to right, #000 0%, #000 85%, transparent 100%);
+  left: -4%;
 }
 
-/* Right Car: Dark Grey Volvo XC60 (fills right 50%) */
+/* Right Car: Volvo (anchored to right, partially cropped by hero edge) */
 .hero-car-right {
-  right: 0;
-  mask-image: linear-gradient(to left, #000 0%, #000 85%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to left, #000 0%, #000 85%, transparent 100%);
+  right: -4%;
 }
 
 .hero-car-img {
+  position: relative;
+  z-index: 2;
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  object-position: center bottom;
+  object-fit: contain;
+  object-position: bottom;
   display: block;
 }
 
@@ -1392,9 +1410,9 @@ dialog#cmp::backdrop {
 @media (max-width: 960px) {
   .royal-links { display: none; }
   .menu-btn { display: block; }
-  .hero-royal-box { min-height: 600px; }
+  .hero-royal-box { min-height: 100vh; }
   .hero-cars-stage { height: 100%; }
-  .hero-car { width: 50%; }
+  .hero-car { width: 48%; }
   .search-dock { grid-template-columns: 1fr; }
   .search-dock-wrapper { margin-top: 20px; }
   .bento-cat-grid { grid-template-columns: 1fr; }
@@ -1425,10 +1443,10 @@ dialog#cmp::backdrop {
   .royal-brand { font-size: 19px; }
   .royal-nav-btn { padding: 8px 16px; font-size: 13px; }
   .hero-royal-stage { padding: 0; }
-  .hero-royal-box { min-height: 70vh; border-radius: 0; }
+  .hero-royal-box { min-height: 100vh; border-radius: 0; }
   .hero-cars-stage { height: 100%; }
-  .hero-car { width: 50%; }
-  .hero-car-img { object-position: center bottom; }
+  .hero-car { width: 48%; }
+  .hero-car-img { object-position: bottom; }
   .hero-pill-btn { padding: 14px 28px; font-size: 15px; }
 }
 

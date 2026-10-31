@@ -107,40 +107,66 @@ img { max-width: 100%; display: block; }
   left: 16px; top: 16px; background: #fff; color: #000; padding: 10px 16px; border-radius: var(--radius-sm);
 }
 
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 /* ==========================================================================
    RoyalCar Hero Section Frame with 3D Parallax & Spotlight
    ========================================================================== */
 .hero-royal-stage {
-  padding: 16px 16px 0;
-  max-width: 1440px;
-  margin: 0 auto;
+  padding: 0;
+  max-width: 100%;
+  width: 100%;
+  margin: 0;
 }
 
 .hero-royal-box {
   position: relative;
-  min-height: min(92vh, 820px);
-  background: radial-gradient(circle at 50% 25%, var(--hero-bg-top) 0%, var(--hero-bg-mid) 50%, var(--hero-bg-bottom) 100%);
-  border-radius: var(--radius-xl);
-  border: 1px solid rgba(255, 255, 255, 0.9);
-  box-shadow: 0 20px 60px -15px rgba(0, 0, 0, 0.35);
+  width: 100%;
+  min-height: 100vh;
+  background: 
+    radial-gradient(ellipse at 50% 85%, rgba(255, 255, 255, 0.95) 0%, transparent 60%),
+    linear-gradient(180deg, #dff1f5 0%, #c9e6ee 55%, #eef8fb 100%);
+  border-radius: 0;
+  border: none;
+  box-shadow: none;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
   overflow: hidden;
-  perspective: 1200px;
-  transform-style: preserve-3d;
+}
+
+/* Subtle Glossy Floor (Bottom 25% Soft White-to-Transparent Sheen) */
+.hero-royal-box::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 25%;
+  background: linear-gradient(to top, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.2) 50%, transparent 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Subtle Top Gradient Behind Navbar (Disabled on Light Studio Background) */
+.hero-royal-box::before {
+  display: none;
 }
 
 /* Ambient Specular Spotlight Follower */
 .hero-spotlight {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: radial-gradient(circle 500px at var(--mouse-x, 50%) var(--mouse-y, 35%), rgba(255, 255, 255, 0.5) 0%, transparent 65%);
-  z-index: 1;
-  opacity: 0.85;
-  transition: opacity 0.3s ease;
+  display: none;
 }
 
 /* Clean Top Navigation Bar */
@@ -160,8 +186,9 @@ img { max-width: 100%; display: block; }
   gap: 8px;
   font-size: 22px;
   font-weight: 800;
-  color: var(--hero-text-dark);
+  color: #0F172A;
   letter-spacing: -0.03em;
+  text-shadow: none;
 }
 
 .royal-slashes {
@@ -180,17 +207,18 @@ img { max-width: 100%; display: block; }
 .royal-links a {
   font-size: 15px;
   font-weight: 600;
-  color: var(--hero-text-muted);
+  color: #334155;
+  text-shadow: none;
   transition: color 0.18s ease;
 }
 
 .royal-links a:hover {
-  color: var(--hero-text-dark);
+  color: #0F172A;
 }
 
 .royal-nav-btn {
   background: #FFFFFF;
-  color: var(--hero-text-dark);
+  color: #0F172A;
   border: 1px solid rgba(15, 23, 42, 0.12);
   padding: 10px 22px;
   border-radius: var(--radius-full);
@@ -202,7 +230,7 @@ img { max-width: 100%; display: block; }
 
 .royal-nav-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.15);
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.14);
   background: #F8FAFC;
 }
 
@@ -218,147 +246,96 @@ img { max-width: 100%; display: block; }
   cursor: pointer;
 }
 
-/* Hero Center Content */
-.hero-center-content {
+/* Hero Center CTA (Positioned in the Center Between Both Cars) */
+.hero-center-cta {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 25;
   text-align: center;
-  max-width: 860px;
-  padding: 0 24px;
-  z-index: 10;
-  margin-top: 15px;
-  margin-bottom: auto;
-  transform: translate3d(var(--text-parallax-x, 0px), var(--text-parallax-y, 0px), 0);
-  transition: transform 0.12s ease-out;
-}
-
-.hero-live-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border: 1px solid rgba(15, 23, 42, 0.12);
-  color: var(--hero-text-dark);
-  padding: 6px 16px;
-  border-radius: var(--radius-full);
-  font-size: 13px;
-  font-weight: 700;
-  margin-bottom: 14px;
-  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.08);
-}
-
-.hero-live-badge .pulse-dot {
-  color: var(--accent-wa);
-}
-
-.hero-title-top {
-  font-size: clamp(38px, 6vw, 76px);
-  font-weight: 800;
-  letter-spacing: -0.04em;
-  line-height: 1.05;
-  color: var(--hero-text-dark);
-  margin: 0;
-}
-
-.hero-title-bottom {
-  font-size: clamp(38px, 6vw, 76px);
-  font-weight: 800;
-  letter-spacing: -0.04em;
-  line-height: 1.05;
-  color: var(--hero-text-dark);
-  margin: 0 0 16px 0;
-}
-
-.hero-subheadline {
-  font-size: clamp(16px, 2vw, 19px);
-  color: var(--hero-text-muted);
-  max-width: 600px;
-  margin: 0 auto 28px;
-  line-height: 1.5;
+  pointer-events: auto;
 }
 
 .hero-pill-btn {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  justify-content: center;
+  gap: 12px;
   background: #000000;
   color: #FFFFFF;
-  padding: 14px 34px;
+  padding: 18px 42px;
   border-radius: var(--radius-full);
   font-weight: 700;
-  font-size: 15px;
-  border: none;
+  font-size: 16px;
+  letter-spacing: -0.01em;
+  border: 1px solid rgba(255, 255, 255, 0.25);
   cursor: pointer;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(255, 255, 255, 0.12);
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 .hero-pill-btn:hover {
-  transform: scale(1.05) translateY(-2px);
-  background: #1e293b;
-  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.35);
+  transform: scale(1.06) translateY(-2px);
+  background: #0f172a;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.55), 0 0 30px rgba(59, 130, 246, 0.35);
+  border-color: rgba(255, 255, 255, 0.5);
 }
 
-/* Two Cars Framing Composition with 3D Mouse Parallax & Scroll Ejection */
+/* Two Cars Studio Framing - Transparent Cutouts on Same Baseline */
 .hero-cars-stage {
   position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 480px;
+  inset: 0;
   width: 100%;
+  height: 100%;
   pointer-events: none;
-  z-index: 5;
-}
-
-/* Ambient ground shadow */
-.hero-cars-stage::before {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 90px;
-  background: radial-gradient(ellipse at 50% 100%, rgba(15, 23, 42, 0.35) 0%, transparent 70%);
+  z-index: 2;
+  overflow: hidden;
 }
 
 .hero-car {
   position: absolute;
-  bottom: -20px;
-  width: 52%;
-  max-width: 720px;
-  height: auto;
-  will-change: transform, opacity;
-  transition: transform 0.15s cubic-bezier(0.2, 0, 0.2, 1);
+  bottom: 0;
+  width: 48%;
+  height: 100%;
+  pointer-events: none;
 }
 
-.hero-car img {
-  width: 100%;
-  height: auto;
-  object-fit: contain;
-  filter: drop-shadow(0 25px 35px rgba(15, 23, 42, 0.4));
+/* Soft Contact Shadow under wheels */
+.car-shadow {
+  position: absolute;
+  bottom: -4px;
+  left: 6%;
+  right: 6%;
+  height: 24px;
+  background: radial-gradient(ellipse at center, rgba(15, 23, 42, 0.95) 0%, rgba(15, 23, 42, 0.55) 42%, transparent 72%);
+  border-radius: 50%;
+  filter: blur(8px);
+  opacity: 0.35;
+  pointer-events: none;
+  z-index: 1;
 }
 
-/* Left Car: White Golf Cabriolet facing center */
+/* Left Car: VW (anchored to left, partially cropped by hero edge) */
 .hero-car-left {
-  left: -40px;
-  transform: translate3d(calc(var(--car-l-x, 0px) + var(--scroll-car-l, 0px)), var(--car-l-y, 0px), 0) rotateY(var(--car-l-rot, 0deg));
-  opacity: var(--car-l-opacity, 1);
-  mask-image: linear-gradient(to right, black 70%, transparent 100%), linear-gradient(to top, black 85%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to right, black 70%, transparent 100%), linear-gradient(to top, black 85%, transparent 100%);
-  mask-composite: intersect;
-  -webkit-mask-composite: source-in;
+  left: -4%;
 }
 
-/* Right Car: Grey Volvo XC60 facing center */
+/* Right Car: Volvo (anchored to right, partially cropped by hero edge) */
 .hero-car-right {
-  right: -40px;
-  transform: translate3d(calc(var(--car-r-x, 0px) + var(--scroll-car-r, 0px)), var(--car-r-y, 0px), 0) rotateY(var(--car-r-rot, 0deg));
-  opacity: var(--car-r-opacity, 1);
-  mask-image: linear-gradient(to left, black 70%, transparent 100%), linear-gradient(to top, black 85%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to left, black 70%, transparent 100%), linear-gradient(to top, black 85%, transparent 100%);
-  mask-composite: intersect;
-  -webkit-mask-composite: source-in;
+  right: -4%;
+}
+
+.hero-car-img {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: bottom;
+  display: block;
 }
 
 /* ==========================================================================
@@ -1433,9 +1410,9 @@ dialog#cmp::backdrop {
 @media (max-width: 960px) {
   .royal-links { display: none; }
   .menu-btn { display: block; }
-  .hero-royal-box { min-height: 640px; }
-  .hero-cars-stage { height: 320px; }
-  .hero-car { width: 56%; }
+  .hero-royal-box { min-height: 100vh; }
+  .hero-cars-stage { height: 100%; }
+  .hero-car { width: 48%; }
   .search-dock { grid-template-columns: 1fr; }
   .search-dock-wrapper { margin-top: 20px; }
   .bento-cat-grid { grid-template-columns: 1fr; }
@@ -1462,12 +1439,15 @@ dialog#cmp::backdrop {
 }
 
 @media (max-width: 600px) {
-  .hero-royal-stage { padding: 8px 8px 0; }
-  .hero-royal-box { min-height: 560px; border-radius: 20px; }
-  .hero-title-top, .hero-title-bottom { font-size: 32px; }
-  .hero-cars-stage { height: 260px; }
-  .hero-car-left { left: -25px; }
-  .hero-car-right { right: -25px; }
+  .royal-nav { padding: 16px 20px; }
+  .royal-brand { font-size: 19px; }
+  .royal-nav-btn { padding: 8px 16px; font-size: 13px; }
+  .hero-royal-stage { padding: 0; }
+  .hero-royal-box { min-height: 100vh; border-radius: 0; }
+  .hero-cars-stage { height: 100%; }
+  .hero-car { width: 48%; }
+  .hero-car-img { object-position: bottom; }
+  .hero-pill-btn { padding: 14px 28px; font-size: 15px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1656,7 +1636,8 @@ dialog#cmp::backdrop {
 }
 
 #rpm-progress {
-  stroke: url(#rpmGrad, #3b82f6);
+  stroke: #3b82f6;
+  stroke: url(#rpmGrad);
   filter: drop-shadow(0 0 8px rgba(59, 130, 246, 0.6));
 }
 
