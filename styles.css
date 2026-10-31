@@ -132,18 +132,43 @@ img { max-width: 100%; display: block; }
 .hero-royal-box {
   position: relative;
   width: 100%;
-  min-height: 100vh;
-  background: 
-    radial-gradient(ellipse at 50% 85%, rgba(255, 255, 255, 0.95) 0%, transparent 60%),
-    linear-gradient(180deg, #dff1f5 0%, #c9e6ee 55%, #eef8fb 100%);
+  --car-lift: 140px; /* ~120px from wheel bottoms to the search bar (dock overlaps hero by 40px, wheels sit ~6% above image bottom) */
+  min-height: max(100vh, 760px);
+  padding-bottom: var(--car-lift);
+  box-sizing: border-box;
+  background: linear-gradient(180deg, #dff1f5 0%, #c9e6ee 55%, #eef8fb 100%);
   border-radius: 0;
   border: none;
   box-shadow: none;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
   overflow: hidden;
+}
+
+/* Studio Center Radial Glow (Animates on with background lights) */
+.hero-center-glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 85%, rgba(255, 255, 255, 0.98) 0%, rgba(255, 255, 255, 0.5) 35%, transparent 65%);
+  opacity: 0;
+  transform: scale(0.92);
+  transform-origin: 50% 85%;
+  pointer-events: none;
+  z-index: 1;
+  animation: heroCenterGlowOn 1.5s cubic-bezier(0.16, 1, 0.3, 1) 1.6s forwards;
+}
+
+/* Initial Dark Studio Overlay (Fades out when background lights turn on) */
+.hero-dark-overlay {
+  position: absolute;
+  inset: 0;
+  background: #080b12;
+  opacity: 0.55;
+  pointer-events: none;
+  z-index: 3;
+  animation: heroOverlayFadeOut 1.5s ease-out 1.6s forwards;
 }
 
 /* Subtle Glossy Floor (Bottom 25% Soft White-to-Transparent Sheen) */
@@ -246,13 +271,40 @@ img { max-width: 100%; display: block; }
   cursor: pointer;
 }
 
-/* Hero Center CTA (Positioned in the Center Between Both Cars) */
-.hero-center-cta {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+/* Hero copy block: headline, subtitle and CTA, centered below the navbar */
+.hero-copy {
+  position: relative;
   z-index: 25;
+  width: 100%;
+  max-width: 1100px;
+  padding: clamp(8px, 2vw, 28px) 20px 0;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.hero-headline {
+  margin: 0;
+  font-size: clamp(40px, 6vw, 88px);
+  font-weight: 800;
+  line-height: 1.04;
+  letter-spacing: -0.035em;
+}
+
+.hero-headline span { display: block; }
+.hero-headline .hl-light { color: #94a3b8; }
+.hero-headline .hl-dark { color: #000; }
+
+.hero-sub {
+  margin: clamp(14px, 1.6vw, 24px) auto 0;
+  max-width: 560px;
+  font-size: clamp(15px, 1.4vw, 19px);
+  line-height: 1.5;
+  color: #64748b;
+}
+
+/* Hero CTA (centered under the subtitle, between the two cars) */
+.hero-center-cta {
+  margin-top: clamp(20px, 2.4vw, 36px);
   text-align: center;
   pointer-events: auto;
 }
@@ -284,29 +336,34 @@ img { max-width: 100%; display: block; }
   border-color: rgba(255, 255, 255, 0.5);
 }
 
-/* Two Cars Studio Framing - Transparent Cutouts on Same Baseline */
+/* Two Cars Studio Framing - Transparent Cutouts on Same Baseline.
+   The stage ends --car-lift above the hero bottom so the wheels/shadows
+   sit ~120px above the search bar. Layout: 3% | VW 40% | 12% gap | Volvo 42.5% | 2.5% */
 .hero-cars-stage {
   position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0 0 var(--car-lift) 0;
   pointer-events: none;
-  z-index: 2;
-  overflow: hidden;
+  z-index: 4;
 }
 
 .hero-car {
   position: absolute;
   bottom: 0;
-  width: 48%;
-  height: 100%;
+  height: auto;
   pointer-events: none;
+}
+
+/* Responsive wrapper strictly matching the car cutout image bounds */
+.hero-car-wrap {
+  position: relative;
+  width: 100%;
+  display: block;
 }
 
 /* Soft Contact Shadow under wheels */
 .car-shadow {
   position: absolute;
-  bottom: -4px;
+  bottom: 3%;
   left: 6%;
   right: 6%;
   height: 24px;
@@ -318,24 +375,186 @@ img { max-width: 100%; display: block; }
   z-index: 1;
 }
 
-/* Left Car: VW (anchored to left, partially cropped by hero edge) */
+/* Left Car: VW (40% wide; narrower image ratio, so same visual height as the Volvo) */
 .hero-car-left {
-  left: -4%;
+  left: 3%;
+  width: 40%;
 }
 
-/* Right Car: Volvo (anchored to right, partially cropped by hero edge) */
+/* The VW's wheels sit higher in its cutout than the Volvo's; nudge it down so both wheel baselines match */
+.hero-car-left .hero-car-wrap {
+  transform: translateY(3.5%);
+}
+
+/* Right Car: Volvo (42.5% wide, scaled up slightly to match the VW's visual size) */
 .hero-car-right {
-  right: -4%;
+  right: 2.5%;
+  width: 42.5%;
 }
 
 .hero-car-img {
   position: relative;
   z-index: 2;
   width: 100%;
-  height: 100%;
-  object-fit: contain;
-  object-position: bottom;
+  height: auto;
   display: block;
+  filter: drop-shadow(0 20px 30px rgba(0, 0, 0, .25));
+}
+
+/* ==========================================================================
+   Hero "Lights On" Headlight Glows & Light Beams
+   ========================================================================== */
+
+/* Warm-white radial glow sitting on each lamp (peak opacity 0.5, blur 8px, mix-blend-mode: screen) */
+.headlight-glow {
+  --lamp-peak: 0.5;
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  filter: blur(8px);
+  z-index: 6;
+  opacity: 0;
+  transform: translate(-50%, -50%);
+  animation: headlightFlickerOn 1.2s ease-out 0.4s forwards;
+  background: radial-gradient(closest-side, rgba(255, 246, 222, 1) 0%, rgba(255, 236, 196, 0.75) 30%, rgba(255, 224, 170, 0.28) 62%, rgba(255, 222, 165, 0) 100%);
+}
+
+/* Car 1 (Golf Cabriolet): Primary & Secondary Headlight Glows */
+.glow-golf-main {
+  left: 56.5%;
+  top: 41%;
+  width: 12%;
+  height: 11%;
+}
+
+.glow-golf-sec {
+  left: 97.5%;
+  top: 43.5%;
+  width: 4.5%;
+  aspect-ratio: 1;
+}
+
+/* Car 2 (Volvo XC60): Primary (Thor's Hammer) & Secondary Headlight Glows */
+.glow-volvo-main {
+  left: 31%;
+  top: 42.5%;
+  width: 15%;
+  height: 13%;
+}
+
+.glow-volvo-sec {
+  left: 2%;
+  top: 39%;
+  width: 4%;
+  aspect-ratio: 1;
+}
+
+/* Soft light beam from each headlight pointing toward center (blurred, very low-opacity cone gradient) */
+.car-light-beam {
+  --lamp-peak: 0.15;
+  position: absolute;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  filter: blur(16px);
+  z-index: 5;
+  opacity: 0;
+  animation: headlightFlickerOn 1.2s ease-out 0.4s forwards;
+}
+
+.beam-golf-main {
+  left: 56.5%;
+  top: 41%;
+  width: 140%;
+  height: 55%;
+  transform-origin: 0% 50%;
+  transform: translateY(-50%) rotate(7.5deg);
+  background: radial-gradient(ellipse 100% 50% at 0% 50%, rgba(255, 255, 250, 0.52) 0%, rgba(255, 250, 230, 0.24) 28%, rgba(255, 245, 215, 0.08) 60%, rgba(255, 255, 255, 0) 85%);
+}
+
+.beam-golf-sec {
+  left: 97.5%;
+  top: 43.5%;
+  width: 100%;
+  height: 42%;
+  transform-origin: 0% 50%;
+  transform: translateY(-50%) rotate(10deg);
+  background: radial-gradient(ellipse 100% 50% at 0% 50%, rgba(255, 255, 250, 0.35) 0%, rgba(255, 250, 230, 0.16) 28%, rgba(255, 245, 215, 0.04) 60%, rgba(255, 255, 255, 0) 85%);
+}
+
+.beam-volvo-main {
+  right: calc(100% - 31%);
+  top: 42.5%;
+  width: 140%;
+  height: 55%;
+  transform-origin: 100% 50%;
+  transform: translateY(-50%) rotate(-7.5deg);
+  background: radial-gradient(ellipse 100% 50% at 100% 50%, rgba(255, 255, 250, 0.52) 0%, rgba(255, 250, 230, 0.24) 28%, rgba(255, 245, 215, 0.08) 60%, rgba(255, 255, 255, 0) 85%);
+}
+
+.beam-volvo-sec {
+  right: calc(100% - 2%);
+  top: 39%;
+  width: 100%;
+  height: 42%;
+  transform-origin: 100% 50%;
+  transform: translateY(-50%) rotate(-10deg);
+  background: radial-gradient(ellipse 100% 50% at 100% 50%, rgba(255, 255, 250, 0.35) 0%, rgba(255, 250, 230, 0.16) 28%, rgba(255, 245, 215, 0.04) 60%, rgba(255, 255, 255, 0) 85%);
+}
+
+/* ==========================================================================
+   Page-Load Lights-On Animations (Double-Flicker & Studio Lighting)
+   ========================================================================== */
+
+/* Double-flicker like a real car lighting up over ~1.2s (scaled to each element's --lamp-peak) */
+@keyframes headlightFlickerOn {
+  0% {
+    opacity: 0;
+  }
+  6% {
+    opacity: calc(var(--lamp-peak, 1) * 0.25);
+  }
+  12% {
+    opacity: calc(var(--lamp-peak, 1) * 0.04);
+  }
+  24% {
+    opacity: calc(var(--lamp-peak, 1) * 0.88);
+  }
+  38% {
+    opacity: calc(var(--lamp-peak, 1) * 0.28);
+  }
+  52% {
+    opacity: calc(var(--lamp-peak, 1) * 0.96);
+  }
+  66% {
+    opacity: calc(var(--lamp-peak, 1) * 0.70);
+  }
+  82%, 100% {
+    opacity: var(--lamp-peak, 1);
+  }
+}
+
+/* Dark overlay fades out 0.55 -> 0 over ~1.5s after headlights turn on */
+@keyframes heroOverlayFadeOut {
+  0% {
+    opacity: 0.55;
+  }
+  100% {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+/* Center radial glow animates opacity 0 -> 1 and slight scale-up over ~1.5s with ease-out */
+@keyframes heroCenterGlowOn {
+  0% {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 /* ==========================================================================
@@ -1410,9 +1629,7 @@ dialog#cmp::backdrop {
 @media (max-width: 960px) {
   .royal-links { display: none; }
   .menu-btn { display: block; }
-  .hero-royal-box { min-height: 100vh; }
-  .hero-cars-stage { height: 100%; }
-  .hero-car { width: 48%; }
+  .hero-royal-box { min-height: 100vh; --car-lift: 95px; /* dock sits 20px below the hero here, so a smaller lift gives ~120px to the wheels */ }
   .search-dock { grid-template-columns: 1fr; }
   .search-dock-wrapper { margin-top: 20px; }
   .bento-cat-grid { grid-template-columns: 1fr; }
@@ -1444,13 +1661,28 @@ dialog#cmp::backdrop {
   .royal-nav-btn { padding: 8px 16px; font-size: 13px; }
   .hero-royal-stage { padding: 0; }
   .hero-royal-box { min-height: 100vh; border-radius: 0; }
-  .hero-cars-stage { height: 100%; }
-  .hero-car { width: 48%; }
   .hero-car-img { object-position: bottom; }
   .hero-pill-btn { padding: 14px 28px; font-size: 15px; }
+  .headlight-glow { filter: blur(5px); }
+  .car-light-beam { filter: blur(9px); }
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .hero-dark-overlay {
+    opacity: 0 !important;
+    display: none !important;
+    animation: none !important;
+  }
+  .hero-center-glow {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+  }
+  .headlight-glow,
+  .car-light-beam {
+    opacity: var(--lamp-peak) !important;
+    animation: none !important;
+  }
   .hero-car, .hero-spotlight, .car-card, .reveal-on-scroll {
     transition: none !important;
     transform: none !important;

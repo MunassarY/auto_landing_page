@@ -33,146 +33,20 @@
   </script>
 </head>
 <body>
-  <!-- ========================================================================
-       Car Ignition & Digital Cockpit Startup Sequence
-       ======================================================================== -->
-  <div id="page-preloader" class="cockpit-preloader" aria-label="Auto startanimatie">
-    <div class="cockpit-curved-glass">
-      
-      <!-- Top Status Header Bar -->
-      <div class="cockpit-top-bar">
-        <div class="cockpit-brand">
-          <span>//</span> AAUTO'S COCKPIT
-        </div>
-        <div class="cockpit-clock" id="cockpit-time">18:30 · 19.5°C · ALPHEN A/D RIJN</div>
-        <button class="cockpit-skip-btn" id="cockpit-skip" type="button">Overslaan &rarr;</button>
-      </div>
-
-      <!-- Instrument Cluster Warning / Tell-Tale Lights Bar -->
-      <div class="cockpit-tell-tales" id="cockpit-icons">
-        <span class="tell-tale tt-battery active-red" title="Accu">⚡</span>
-        <span class="tell-tale tt-oil active-red" title="Oliedruk">🛢️</span>
-        <span class="tell-tale tt-engine active-amber" title="Motormanagement">⚠️</span>
-        <span class="tell-tale tt-brake active-red" title="Handrem">🛑</span>
-        <span class="tell-tale tt-seatbelt active-red" title="Gordel">💺</span>
-        <span class="tell-tale tt-abs active-amber" title="ABS Systeem">ABS</span>
-        <span class="tell-tale tt-lights" id="tt-lights" title="Verlichting">💡</span>
-        <span class="tell-tale tt-ready" id="tt-ready" title="Systeem Startklaar">READY</span>
-      </div>
-
-      <!-- Main Dual Digital Dials Stage -->
-      <div class="cockpit-gauges-stage">
-        
-        <!-- Left Gauge: Tachometer (RPM) -->
-        <div class="gauge-dial dial-rpm">
-          <svg class="gauge-svg" viewBox="0 0 200 200">
-            <defs>
-              <linearGradient id="rpmGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#3b82f6" />
-                <stop offset="75%" stop-color="#22c55e" />
-                <stop offset="100%" stop-color="#ef4444" />
-              </linearGradient>
-            </defs>
-            <circle class="gauge-track" cx="100" cy="100" r="80" />
-            <circle class="gauge-progress" id="rpm-progress" cx="100" cy="100" r="80" />
-          </svg>
-          <div class="gauge-inner">
-            <span class="gauge-label">TOEREN x1000</span>
-            <div class="gauge-value" id="rpm-val">0.0</div>
-            <span class="gauge-sub" id="rpm-status">CONTACT AAN</span>
-          </div>
-          <div class="dial-ticks rpm-ticks">
-            <span>0</span><span>2</span><span>4</span><span>6</span><span style="color:#ef4444">8</span>
-          </div>
-        </div>
-
-        <!-- Center Screen: Vehicle Wireframe & System Check -->
-        <div class="cockpit-center-screen">
-          <div class="cockpit-car-silhouette" id="car-silhouette">
-            <div class="headlight-beam beam-left"></div>
-            <div class="headlight-beam beam-right"></div>
-            <span class="car-silhouette-icon">🏎️</span>
-          </div>
-          <div class="cockpit-system-check" id="cockpit-status-list">
-            <div class="sys-item" id="sys-1"><span class="sys-check">○</span> CONTACT AAN...</div>
-            <div class="sys-item" id="sys-2"><span class="sys-check">○</span> RDW KOPPELING...</div>
-            <div class="sys-item" id="sys-3"><span class="sys-check">○</span> 64-PNT INSPECTIE...</div>
-            <div class="sys-item" id="sys-4"><span class="sys-check">○</span> 100% NAP HISTORIE...</div>
-          </div>
-          <div class="cockpit-status-headline" id="cockpit-headline">SYSTEEMTEST STARTEN...</div>
-        </div>
-
-        <!-- Right Gauge: Speedometer (km/h) -->
-        <div class="gauge-dial dial-speed">
-          <svg class="gauge-svg" viewBox="0 0 200 200">
-            <circle class="gauge-track" cx="100" cy="100" r="80" />
-            <circle class="gauge-progress" id="speed-progress" cx="100" cy="100" r="80" />
-          </svg>
-          <div class="gauge-inner">
-            <span class="gauge-label">SNELHEID</span>
-            <div class="gauge-value" id="speed-val">0</div>
-            <span class="gauge-sub">KM/H · [P]</span>
-          </div>
-          <div class="dial-ticks speed-ticks">
-            <span>0</span><span>60</span><span>120</span><span>180</span><span>240</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Bottom Dashboard Bar: Fuel Gauge (Benzinetank) & Engine Start Button -->
-      <div class="cockpit-bottom-bar">
-        <!-- Fuel Level Gauge (Benzinetank) -->
-        <div class="cockpit-tank-module">
-          <div class="tank-header">
-            <span class="tank-icon">⛽</span>
-            <span class="tank-label">BENZINETANK</span>
-            <span class="tank-status" id="tank-percent">0%</span>
-          </div>
-          <div class="tank-bar-frame">
-            <div class="tank-bar-fill" id="tank-fill"></div>
-          </div>
-          <div class="tank-footer">
-            <span>E</span>
-            <span id="tank-range">Actieradius: 0 km</span>
-            <span>F</span>
-          </div>
-        </div>
-
-        <!-- Engine Start / Push Button -->
-        <button class="engine-start-button" id="engine-start-btn" type="button" aria-label="Start Motor">
-          <span class="engine-start-ring"></span>
-          <span class="engine-start-text">ENGINE<br><b>START</b></span>
-        </button>
-
-        <!-- Oil & Engine Temp -->
-        <div class="cockpit-temp-module">
-          <div class="tank-header">
-            <span class="tank-icon">🌡️</span>
-            <span class="tank-label">MOTORTEMP</span>
-            <span class="tank-status" id="temp-val">20°C</span>
-          </div>
-          <div class="tank-bar-frame">
-            <div class="tank-bar-fill temp-fill" id="temp-fill"></div>
-          </div>
-          <div class="tank-footer">
-            <span>C</span>
-            <span>90°C Optimaal</span>
-            <span>H</span>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
   <a class="skip" href="#aanbod">Direct naar het autoaanbod</a>
 
   <!-- ========================================================================
-       RoyalCar-Inspired Two-Cars Hero Section Frame
+       RoyalCar-Inspired Two-Cars Hero Section Frame with "Lights On" Experience
        ======================================================================== -->
   <div class="hero-royal-stage">
     <section class="hero-royal-box" aria-labelledby="hero-title">
       
+      <!-- Studio Center Radial Glow (Animates on with background lights) -->
+      <div class="hero-center-glow" aria-hidden="true"></div>
+
+      <!-- Initial Dark Studio Overlay (Fades out when background lights turn on) -->
+      <div class="hero-dark-overlay" aria-hidden="true"></div>
+
       <!-- Ambient Specular Spotlight Follower -->
       <div class="hero-spotlight" aria-hidden="true"></div>
 
@@ -196,14 +70,18 @@
         </div>
       </nav>
 
-      <!-- Accessible Screen Reader Headline -->
-      <h1 id="hero-title" class="sr-only">AAUTO'S — Occasions in Alphen aan den Rijn</h1>
-
-      <!-- Center Hero Call-To-Action (Centered Between the Two Cars) -->
-      <div class="hero-center-cta">
-        <button class="hero-pill-btn" onclick="if(window.lenis){window.lenis.scrollTo('#aanbod',{offset:-30,duration:1.2})}else{document.getElementById('aanbod').scrollIntoView({behavior:'smooth'})}">
-          Bekijk Occasions <span>&rarr;</span>
-        </button>
+      <!-- Headline, subtitle and CTA (CTA sits centered between the two cars) -->
+      <div class="hero-copy">
+        <h1 id="hero-title" class="hero-headline">
+          <span class="hl-light">Premium occasions.</span>
+          <span class="hl-dark">Zorgvuldig geselecteerd.</span>
+        </h1>
+        <p class="hero-sub">64-punten gecontroleerd, 100% NAP en transparante all-in prijzen in Alphen aan den Rijn.</p>
+        <div class="hero-center-cta">
+          <button class="hero-pill-btn" onclick="if(window.lenis){window.lenis.scrollTo('#aanbod',{offset:-30,duration:1.2})}else{document.getElementById('aanbod').scrollIntoView({behavior:'smooth'})}">
+            Bekijk Occasions <span>&rarr;</span>
+          </button>
+        </div>
       </div>
 
       <!-- Symmetrical Two-Cars Framing Stage -->
@@ -211,13 +89,33 @@
         <!-- Car 1 (Left): VW Golf Cabriolet -->
         <div class="hero-car hero-car-left">
           <div class="car-shadow" aria-hidden="true"></div>
-          <img class="hero-car-img" src="car1-cutout.png" alt="Volkswagen Golf Cabriolet AAUTO'S" />
+          <div class="hero-car-wrap">
+            <img class="hero-car-img" src="car1-cutout.png" alt="Volkswagen Golf Cabriolet AAUTO'S" />
+            
+            <!-- Soft Light Beams (Cone Gradients pointing toward center) -->
+            <div class="car-light-beam beam-golf-main" aria-hidden="true"></div>
+            <div class="car-light-beam beam-golf-sec" aria-hidden="true"></div>
+
+            <!-- Headlight Glows (Radial Gradient White/Warm-White) -->
+            <div class="headlight-glow glow-golf-main" aria-hidden="true"></div>
+            <div class="headlight-glow glow-golf-sec" aria-hidden="true"></div>
+          </div>
         </div>
 
         <!-- Car 2 (Right): Volvo XC60 -->
         <div class="hero-car hero-car-right">
           <div class="car-shadow" aria-hidden="true"></div>
-          <img class="hero-car-img" src="car2-cutout.png" alt="Volvo XC60 Momentum AWD AAUTO'S" />
+          <div class="hero-car-wrap">
+            <img class="hero-car-img" src="car2-cutout.png" alt="Volvo XC60 Momentum AWD AAUTO'S" />
+            
+            <!-- Soft Light Beams (Cone Gradients pointing toward center) -->
+            <div class="car-light-beam beam-volvo-main" aria-hidden="true"></div>
+            <div class="car-light-beam beam-volvo-sec" aria-hidden="true"></div>
+
+            <!-- Headlight Glows (Radial Gradient White/Warm-White) -->
+            <div class="headlight-glow glow-volvo-main" aria-hidden="true"></div>
+            <div class="headlight-glow glow-volvo-sec" aria-hidden="true"></div>
+          </div>
         </div>
       </div>
     </section>
