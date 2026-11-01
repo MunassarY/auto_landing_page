@@ -1,4 +1,4 @@
-// AAUTO'S - Client logic with Spline 3D Runtime, Smooth Preloader, Reveal, & Micro-Interactions
+// AAUTO'S — Client Logic (Search, Inventory, Spline 3D Runtime, RDW Lookup, Finance Calculator, Contact)
 import { Application } from '@splinetool/runtime';
 
 const CONFIG = {
@@ -24,170 +24,6 @@ let cars = window.CARS || [];
 let favs = store.get("favs");
 let cmp = [];
 
-// ---- Digital Cockpit Car Starting Entrance Sequence ----
-function initCockpitStartup() {
-  const preloader = $("#page-preloader");
-  if (!preloader) return;
-
-  const rpmProgress = $("#rpm-progress");
-  const rpmVal = $("#rpm-val");
-  const rpmStatus = $("#rpm-status");
-  const speedProgress = $("#speed-progress");
-  const speedVal = $("#speed-val");
-  const tankFill = $("#tank-fill");
-  const tankPercent = $("#tank-percent");
-  const tankRange = $("#tank-range");
-  const tempFill = $("#temp-fill");
-  const tempVal = $("#temp-val");
-  const headline = $("#cockpit-headline");
-  const silhouette = $("#car-silhouette");
-  const startBtn = $("#engine-start-btn");
-  const skipBtn = $("#cockpit-skip");
-  const ttReady = $("#tt-ready");
-  const ttLights = $("#tt-lights");
-  const clockEl = $("#cockpit-time");
-
-  // Update clock with real time
-  if (clockEl) {
-    const now = new Date();
-    const timeStr = `${String(now.getHours()).padStart(2, "0")}:${String(now.getMinutes()).padStart(2, "0")}`;
-    clockEl.textContent = `${timeStr} · 19.5°C · ALPHEN A/D RIJN`;
-  }
-
-  let isComplete = false;
-  function finish() {
-    if (isComplete) return;
-    isComplete = true;
-    preloader.classList.add("is-loaded");
-    setTimeout(() => { preloader.style.display = "none"; }, 850);
-  }
-
-  if (skipBtn) skipBtn.onclick = finish;
-  if (startBtn) startBtn.onclick = finish;
-
-  // Arc stroke mapping (circumference 380)
-  const setGauge = (el, pct) => {
-    if (el) el.style.strokeDashoffset = (380 - (pct * 3.8)).toFixed(1);
-  };
-
-  // STEP 1: Fuel Tank (Benzinetank) & Temp Gauge Rise
-  let tankP = 0;
-  const tankTimer = setInterval(() => {
-    tankP += 4;
-    if (tankP >= 100) {
-      tankP = 100;
-      clearInterval(tankTimer);
-    }
-    if (tankFill) tankFill.style.width = tankP + "%";
-    if (tankPercent) tankPercent.textContent = tankP + "%";
-    if (tankRange) tankRange.textContent = `Actieradius: ${Math.round(tankP * 8.4)} km`;
-    if (tempFill) tempFill.style.width = (tankP * 0.78) + "%";
-    if (tempVal) tempVal.textContent = `${Math.round(20 + tankP * 0.7)}°C`;
-  }, 25);
-
-  // STEP 2: System Checks sequentially checking off
-  setTimeout(() => {
-    const s1 = $("#sys-1");
-    if (s1) { s1.classList.add("checked"); s1.innerHTML = `<span class="sys-check">✓</span> CONTACT AAN`; }
-    if (headline) headline.textContent = "CONTACT GEACTIVEERD";
-  }, 300);
-
-  setTimeout(() => {
-    const s2 = $("#sys-2");
-    if (s2) { s2.classList.add("checked"); s2.innerHTML = `<span class="sys-check">✓</span> RDW KOPPELING OK`; }
-  }, 600);
-
-  // STEP 3: Needle Sweep (Tachometer & Speedometer)
-  setTimeout(() => {
-    const s3 = $("#sys-3");
-    if (s3) { s3.classList.add("checked"); s3.innerHTML = `<span class="sys-check">✓</span> 64-PNT CHECK OK`; }
-    if (headline) headline.textContent = "INSTRUMENTEN CHECK...";
-    if (silhouette) silhouette.classList.add("lights-on");
-    if (ttLights) ttLights.classList.add("active-blue");
-
-    // Sweep Up
-    let sweep = 0;
-    const sweepUp = setInterval(() => {
-      sweep += 5;
-      if (sweep >= 98) {
-        sweep = 98;
-        clearInterval(sweepUp);
-
-        // Sweep Down
-        setTimeout(() => {
-          const sweepDown = setInterval(() => {
-            sweep -= 6;
-            if (sweep <= 0) {
-              sweep = 0;
-              clearInterval(sweepDown);
-              onSweepComplete();
-            }
-            setGauge(rpmProgress, sweep);
-            setGauge(speedProgress, sweep);
-            if (rpmVal) rpmVal.textContent = ((sweep / 100) * 8.0).toFixed(1);
-            if (speedVal) speedVal.textContent = Math.round((sweep / 100) * 260);
-          }, 20);
-        }, 120);
-      }
-      setGauge(rpmProgress, sweep);
-      setGauge(speedProgress, sweep);
-      if (rpmVal) rpmVal.textContent = ((sweep / 100) * 8.0).toFixed(1);
-      if (speedVal) speedVal.textContent = Math.round((sweep / 100) * 260);
-    }, 20);
-  }, 800);
-
-  function onSweepComplete() {
-    const s4 = $("#sys-4");
-    if (s4) { s4.classList.add("checked"); s4.innerHTML = `<span class="sys-check">✓</span> 100% NAP HISTORIE`; }
-
-    // Warning test lights extinguish, leaving engine start
-    $$(".cockpit-tell-tales .tell-tale").forEach(icon => {
-      if (!icon.classList.contains("tt-ready") && !icon.classList.contains("tt-lights")) {
-        icon.className = "tell-tale";
-      }
-    });
-
-    if (ttReady) ttReady.classList.add("active-green");
-    if (startBtn) startBtn.classList.add("is-active");
-    if (headline) headline.textContent = "ENGINE START · KLAAR VOOR VERTREK";
-    if (rpmStatus) rpmStatus.textContent = "STATIONAIR (IDLE)";
-
-    // Engine Idle RPM: 850 RPM
-    setGauge(rpmProgress, 11);
-    if (rpmVal) rpmVal.textContent = "0.9";
-    if (speedVal) speedVal.textContent = "0";
-
-    // Smooth exit into the website
-    setTimeout(() => {
-      finish();
-    }, 750);
-  }
-
-  // Safety fallback
-  setTimeout(() => {
-    finish();
-  }, 4500);
-}
-
-// ---- Scroll Entrance Reveal (IntersectionObserver) ----
-function initScrollReveal() {
-  const targets = document.querySelectorAll(".reveal-on-scroll");
-  if (!targets.length) return;
-
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("is-revealed");
-      }
-    });
-  }, {
-    threshold: 0.12,
-    rootMargin: "0px 0px -40px 0px"
-  });
-
-  targets.forEach(t => observer.observe(t));
-}
-
 // ---- Spline 3D Scene Runtime Integration ----
 let splineApp = null;
 function initSplineScene() {
@@ -199,8 +35,6 @@ function initSplineScene() {
     window.splineApp = splineApp;
 
     const statusEl = document.getElementById("spline-status-text");
-    
-    // User can define window.SPLINE_SCENE_URL or pass it when ready
     const sceneUrl = window.SPLINE_SCENE_URL || null;
 
     if (sceneUrl) {
@@ -212,10 +46,9 @@ function initSplineScene() {
         if (statusEl) statusEl.textContent = "Spline 3D Runtime Actief";
       });
     } else {
-      if (statusEl) statusEl.textContent = "Spline Runtime Gereed (Wachten op SCENE_URL)";
+      if (statusEl) statusEl.textContent = "Spline Runtime Gereed";
     }
 
-    // Camera reset button
     const resetBtn = document.getElementById("spline-reset-btn");
     if (resetBtn) {
       resetBtn.addEventListener("click", () => {
@@ -234,7 +67,6 @@ function initSplineScene() {
   }
 }
 
-// Function allowing user or dynamic script to load/change the Spline scene
 window.loadSplineScene = function(url) {
   if (!url) return;
   window.SPLINE_SCENE_URL = url;
@@ -255,77 +87,36 @@ window.loadSplineScene = function(url) {
   });
 };
 
-// ---- Magnetic Buttons Micro-Interactions ----
-function initMagneticButtons() {
-  const btns = document.querySelectorAll(".hero-pill-btn, .btn-primary, .royal-nav-btn");
-  btns.forEach(btn => {
-    btn.classList.add("magnetic-btn");
-    btn.addEventListener("mousemove", e => {
-      const rect = btn.getBoundingClientRect();
-      const x = e.clientX - rect.left - rect.width / 2;
-      const y = e.clientY - rect.top - rect.height / 2;
-      btn.style.transform = `translate(${(x * 0.18).toFixed(1)}px, ${(y * 0.18).toFixed(1)}px)`;
-    });
-    btn.addEventListener("mouseleave", () => {
-      btn.style.transform = "translate(0px, 0px)";
-    });
-  });
-}
-
-// ---- Bento Cards 3D Micro-Tilt ----
-function initBentoCardInteractions() {
-  const bentoCards = document.querySelectorAll(".cat-bento-card, .trust-card, .tool-card");
-  bentoCards.forEach(card => {
-    card.addEventListener("mousemove", e => {
-      const rect = card.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      const centerX = rect.width / 2;
-      const centerY = rect.height / 2;
-      const rotX = ((centerY - y) / centerY) * 3;
-      const rotY = ((x - centerX) / centerX) * 3;
-      card.style.transform = `perspective(1000px) rotateX(${rotX.toFixed(2)}deg) rotateY(${rotY.toFixed(2)}deg) translateY(-4px)`;
-    });
-    card.addEventListener("mouseleave", () => {
-      card.style.transform = "perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px)";
-    });
-  });
-}
-
 // Wire up telephone and WhatsApp links
 $$("[data-tel]").forEach(a => {
   a.href = "tel:" + CONFIG.phone;
-  if (a.classList.contains("tel-link") || a.classList.contains("tel")) a.textContent = CONFIG.phoneLabel;
 });
 $$("[data-wa]").forEach(a => {
   a.href = "https://wa.me/" + CONFIG.whatsapp + "?text=" + encodeURIComponent("Hallo AAUTO'S, ik heb een vraag over een occasion.");
 });
 
-// Mobile navigation toggle
+// Mobile navigation toggle (class-based, zero inline styles)
 const mb = $(".menu-btn");
 if (mb) {
   mb.onclick = () => {
     const nav = $(".royal-links");
     if (!nav) return;
-    const isShown = nav.style.display === "flex";
-    nav.style.display = isShown ? "none" : "flex";
-    nav.style.position = "absolute";
-    nav.style.top = "70px";
-    nav.style.left = "20px";
-    nav.style.right = "20px";
-    nav.style.flexDirection = "column";
-    nav.style.background = "#FFFFFF";
-    nav.style.border = "1px solid rgba(15, 23, 42, 0.15)";
-    nav.style.borderRadius = "16px";
-    nav.style.padding = "20px";
-    nav.style.gap = "14px";
-    nav.style.boxShadow = "0 20px 40px rgba(0, 0, 0, 0.2)";
-    mb.setAttribute("aria-expanded", !isShown);
+    const isOpen = nav.classList.toggle("is-open");
+    mb.setAttribute("aria-expanded", String(isOpen));
   };
+  $$(".royal-links a").forEach(link => {
+    link.addEventListener("click", () => {
+      const nav = $(".royal-links");
+      if (nav && nav.classList.contains("is-open")) {
+        nav.classList.remove("is-open");
+        mb.setAttribute("aria-expanded", "false");
+      }
+    });
+  });
 }
 
-// ---- Smooth Odometer / Counter Animation ----
-function animateNumber(element, start, end, duration = 300, prefix = "", suffix = "") {
+// ---- Counter Update Helper ----
+function animateNumber(element, start, end, duration = 250, prefix = "", suffix = "") {
   if (!element) return;
   const startTime = performance.now();
   function update(currentTime) {
@@ -378,7 +169,7 @@ if (f) {
     const matchingCount = match().length;
     const countEl = $("#count");
     if (countEl) {
-      animateNumber(countEl, currentCount, matchingCount, 250);
+      animateNumber(countEl, currentCount, matchingCount, 200);
       currentCount = matchingCount;
     }
   }
@@ -413,7 +204,7 @@ function initCategories() {
   if ($("#count-bedrijfswagens")) $("#count-bedrijfswagens").textContent = catCounts["bedrijfswagens"] + " auto's";
 
   $$(".cat-bento-card").forEach(btn => {
-    btn.onclick = () => {
+    const activateCategory = () => {
       const cat = btn.dataset.cat;
       let filtered = [];
       if (cat === "onder-10k") filtered = cars.filter(c => c.price < 10000);
@@ -426,27 +217,32 @@ function initCategories() {
       if (window.lenis) window.lenis.scrollTo("#aanbod", { offset: -30, duration: 1.2 });
       else $("#aanbod")?.scrollIntoView({ behavior: "smooth" });
     };
+    btn.onclick = activateCategory;
+    btn.addEventListener("keydown", e => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        activateCategory();
+      }
+    });
   });
 }
 
-// ---- Cars rendering in Bento Card format with 3D Specular Glare ----
+// ---- Vehicle Editorial List Item Rendering (No Glare, No License Plate Badge) ----
 function card(c) {
   const fav = favs.includes(c.id);
   const imgUrl = c.image || "assets/cars/golf.jpg";
   const monthlyEst = Math.round((c.price - 2000) * (CONFIG.apr / 12) / (1 - Math.pow(1 + CONFIG.apr / 12, -48)));
 
-  return `<div class="car-card">
-    <div class="car-glare" aria-hidden="true"></div>
+  return `<article class="car-card">
     <div class="car-media">
-      <img src="${imgUrl}" alt="${c.make} ${c.model}" loading="lazy" />
-      <div class="dutch-plate">${c.plate}</div>
-      <button class="car-fav-btn" data-fav="${c.id}" aria-pressed="${fav}" title="Favoriet opslaan">
+      <img src="${imgUrl}" alt="${c.make} ${c.model} ${c.variant}" width="1184" height="624" loading="lazy" decoding="async" />
+      <button class="car-fav-btn" type="button" data-fav="${c.id}" aria-pressed="${fav}" title="Favoriet opslaan">
         ${fav ? "★" : "☆"}
       </button>
     </div>
     <div class="car-body">
       <div class="car-title-wrap">
-        <div class="car-title">${c.make} ${c.model}</div>
+        <h3 class="car-title">${c.make} ${c.model}</h3>
         <div class="car-variant">${c.variant}</div>
       </div>
       <div class="car-chips">
@@ -468,35 +264,7 @@ function card(c) {
         </label>
       </div>
     </div>
-  </div>`;
-}
-
-// 3D Card Tilt with Specular Glare Follower
-function initCardTilt() {
-  const cards = document.querySelectorAll(".car-card");
-  cards.forEach(card => {
-    if (card._tiltBound) return;
-    card._tiltBound = true;
-
-    card.addEventListener("mousemove", e => {
-      const rect = card.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      const centerX = rect.width / 2;
-      const centerY = rect.height / 2;
-
-      const rotateX = ((centerY - y) / centerY) * 5;
-      const rotateY = ((x - centerX) / centerX) * 5;
-
-      card.style.transform = `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) translateY(-4px)`;
-      card.style.setProperty("--glare-x", `${x}px`);
-      card.style.setProperty("--glare-y", `${y}px`);
-    });
-
-    card.addEventListener("mouseleave", () => {
-      card.style.transform = "perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px)";
-    });
-  });
+  </article>`;
 }
 
 function render(list) {
@@ -504,13 +272,10 @@ function render(list) {
   if (!container) return;
   container.innerHTML = list.length
     ? list.map(card).join("")
-    : `<div style="grid-column:1/-1;padding:60px 20px;text-align:center;background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:var(--radius-lg)">
-        <h3 style="font-size:20px;margin-bottom:8px">Geen occasions gevonden</h3>
-        <p style="color:var(--text-secondary);font-size:14px">Probeer uw zoekfilters aan te passen of neem direct contact met ons op.</p>
+    : `<div class="empty-results">
+        <h3>Geen occasions gevonden</h3>
+        <p>Probeer uw zoekfilters aan te passen of neem direct contact met ons op.</p>
        </div>`;
-  
-  // Re-attach 3D tilt after DOM render
-  initCardTilt();
 }
 
 // Favorite & Compare handlers
@@ -522,7 +287,7 @@ if (carsTrack) {
     const id = b.dataset.fav;
     favs = favs.includes(id) ? favs.filter(x => x !== id) : [...favs, id];
     store.set("favs", favs);
-    b.setAttribute("aria-pressed", favs.includes(id));
+    b.setAttribute("aria-pressed", String(favs.includes(id)));
     b.textContent = favs.includes(id) ? "★" : "☆";
   });
 
@@ -555,21 +320,20 @@ if (trayGo) {
       ["Transmissie", "trans"],
       ["APK tot", "apk"]
     ];
-    $("#cmp-body").innerHTML = `<table>
-      <tr><th>Kenmerk</th>${L.map(c => `<th>${c.make} ${c.model}</th>`).join("")}</tr>
-      ${rows.map(([n, k]) => `<tr>
-        <td style="color:var(--text-muted)"><b>${n}</b></td>
-        ${L.map(c => `<td style="font-family:var(--font-mono);color:#fff">${k === "price" ? eur(c[k]) : k === "km" ? c[k].toLocaleString("nl-NL") + " km" : c[k]}</td>`).join("")}
-      </tr>`).join("")}
+    $("#cmp-body").innerHTML = `<table class="cmp-table">
+      <thead>
+        <tr><th>Kenmerk</th>${L.map(c => `<th>${c.make} ${c.model}</th>`).join("")}</tr>
+      </thead>
+      <tbody>
+        ${rows.map(([n, k]) => `<tr>
+          <td class="cmp-feature-name">${n}</td>
+          ${L.map(c => `<td class="cmp-feature-val">${k === "price" ? eur(c[k]) : k === "km" ? c[k].toLocaleString("nl-NL") + " km" : c[k]}</td>`).join("")}
+        </tr>`).join("")}
+      </tbody>
     </table>`;
     const dialog = $("#cmp");
     if (dialog && dialog.showModal) dialog.showModal();
   };
-}
-
-// ---- Hero 3D Mouse Parallax & Spotlight Follower ----
-function initHeroParallax() {
-  // Parallax on hero cars removed
 }
 
 // ---- Interactive 64-Point Inspection Tabs ----
@@ -581,31 +345,40 @@ const inspectionData = {
 };
 
 function initInspectorTabs() {
-  const tabs = document.querySelectorAll(".inspector-tab-btn");
+  const tabs = [...document.querySelectorAll(".inspector-tab-btn")];
   const content = document.getElementById("inspector-content");
   if (!tabs.length || !content) return;
 
-  tabs.forEach(btn => {
-    btn.addEventListener("click", () => {
-      tabs.forEach(t => {
-        t.classList.remove("active");
-        t.setAttribute("aria-selected", "false");
-      });
-      btn.classList.add("active");
-      btn.setAttribute("aria-selected", "true");
-      const key = btn.dataset.tab;
-      if (inspectionData[key]) {
-        content.style.opacity = "0.3";
-        setTimeout(() => {
-          content.innerHTML = inspectionData[key];
-          content.style.opacity = "1";
-        }, 120);
+  function selectTab(btn) {
+    tabs.forEach(t => {
+      t.classList.remove("active");
+      t.setAttribute("aria-selected", "false");
+    });
+    btn.classList.add("active");
+    btn.setAttribute("aria-selected", "true");
+    if (btn.id) content.setAttribute("aria-labelledby", btn.id);
+    const key = btn.dataset.tab;
+    if (inspectionData[key]) {
+      content.innerHTML = inspectionData[key];
+    }
+  }
+
+  tabs.forEach((btn, idx) => {
+    btn.addEventListener("click", () => selectTab(btn));
+    btn.addEventListener("keydown", e => {
+      if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
+        e.preventDefault();
+        const nextIdx = e.key === "ArrowRight"
+          ? (idx + 1) % tabs.length
+          : (idx - 1 + tabs.length) % tabs.length;
+        tabs[nextIdx].focus();
+        selectTab(tabs[nextIdx]);
       }
     });
   });
 }
 
-// ---- Interactive Finance Calculator with Fluid Range Sliders ----
+// ---- Interactive Finance Calculator ----
 let currentMonthly = 0;
 function initFinanceCalculator() {
   const priceSlider = $("#calc-price");
@@ -644,7 +417,7 @@ function initFinanceCalculator() {
   update();
 }
 
-// ---- RDW License Plate Lookup with Laser Scanner Effect ----
+// ---- RDW License Plate Lookup ----
 async function lookupPlate(plate) {
   const clean = plate.replace(/[^a-zA-Z0-9]/g, "").toUpperCase();
   if (clean.length < 6) return null;
@@ -661,7 +434,6 @@ async function lookupPlate(plate) {
 
 function initTradeScanner() {
   const plateInput = document.querySelector(".plate-input");
-  const plateWrapper = document.getElementById("plate-wrapper");
   if (!plateInput) return;
 
   let debounceTimer;
@@ -673,10 +445,8 @@ function initTradeScanner() {
     if (existingPill) existingPill.remove();
 
     if (clean.length >= 6) {
-      if (plateWrapper) plateWrapper.classList.add("is-scanning");
       debounceTimer = setTimeout(async () => {
         const vehicle = await lookupPlate(clean);
-        if (plateWrapper) plateWrapper.classList.remove("is-scanning");
         if (vehicle) {
           const pill = document.createElement("div");
           pill.id = "rdw-info";
@@ -686,32 +456,11 @@ function initTradeScanner() {
           plateInput.closest(".input-group").after(pill);
         }
       }, 600);
-    } else {
-      if (plateWrapper) plateWrapper.classList.remove("is-scanning");
     }
   });
 }
 
-// ---- Reviews Auto-Scroll Marquee ----
-function initReviewsMarquee() {
-  const track = document.querySelector(".reviews-slider-track");
-  if (!track) return;
-  let isHovered = false;
-  track.addEventListener("mouseenter", () => isHovered = true);
-  track.addEventListener("mouseleave", () => isHovered = false);
-
-  setInterval(() => {
-    if (isHovered) return;
-    const maxScroll = track.scrollWidth - track.clientWidth;
-    if (track.scrollLeft >= maxScroll - 10) {
-      track.scrollTo({ left: 0, behavior: "smooth" });
-    } else {
-      track.scrollBy({ left: 340, behavior: "smooth" });
-    }
-  }, 4500);
-}
-
-// ---- Real-time Dealership Open Beacon & Hours Table ----
+// ---- Real-time Dealership Open Status & Hours Table ----
 function updateHours() {
   const table = $("#hours");
   const beacon = $("#open-status-box");
@@ -728,8 +477,8 @@ function updateHours() {
     const isToday = d === day;
     const timeStr = h ? `${String(h[0]).padStart(2, "0")}:00 – ${String(h[1]).padStart(2, "0")}:00` : "Gesloten (op afspraak)";
     return `<tr class="${isToday ? "today" : ""}">
-      <td>${days[d]} ${isToday ? " (Vandaag)" : ""}</td>
-      <td style="text-align:right">${timeStr}</td>
+      <td>${days[d]}${isToday ? " (Vandaag)" : ""}</td>
+      <td class="hours-time">${timeStr}</td>
     </tr>`;
   }).join("");
 
@@ -755,7 +504,7 @@ async function sendLead(type, form) {
 
   try {
     if (!CONFIG.leadEndpoint) {
-      st.innerHTML = `Hartelijk dank! We hebben uw gegevens ontvangen en nemen z.s.m. contact op. Direct antwoord? <a style="text-decoration:underline;color:inherit" href="https://wa.me/${CONFIG.whatsapp}" target="_blank">Stuur een WhatsApp</a>.`;
+      st.innerHTML = `Hartelijk dank! We hebben uw gegevens ontvangen en nemen z.s.m. contact op. Direct antwoord? <a class="status-link" href="https://wa.me/${CONFIG.whatsapp}" target="_blank" rel="noopener">Stuur een WhatsApp</a>.`;
       form.reset();
       console.info("Lead data recorded:", data);
       return;
@@ -769,7 +518,7 @@ async function sendLead(type, form) {
     st.textContent = "Verstuurd! We nemen binnen 24 uur contact met u op.";
     form.reset();
   } catch {
-    st.innerHTML = `Uw bericht is geregistreerd. Bel gerust <a style="text-decoration:underline;color:inherit" href="tel:${CONFIG.phone}">${CONFIG.phoneLabel}</a> voor direct advies.`;
+    st.innerHTML = `Uw bericht is geregistreerd. Bel gerust <a class="status-link" href="tel:${CONFIG.phone}">${CONFIG.phoneLabel}</a> voor direct advies.`;
   }
 }
 
@@ -788,17 +537,30 @@ if (cookieBanner) {
   if (localStorage.getItem("cookie_consent")) {
     cookieBanner.hidden = true;
   }
-  $("#cookie-accept").onclick = () => {
-    localStorage.setItem("cookie_consent", "all");
-    cookieBanner.hidden = true;
-  };
-  $("#cookie-essential").onclick = () => {
-    localStorage.setItem("cookie_consent", "essential");
-    cookieBanner.hidden = true;
-  };
+  const acceptBtn = $("#cookie-accept");
+  if (acceptBtn) {
+    acceptBtn.onclick = () => {
+      localStorage.setItem("cookie_consent", "all");
+      cookieBanner.hidden = true;
+    };
+  }
+  const essentialBtn = $("#cookie-essential");
+  if (essentialBtn) {
+    essentialBtn.onclick = () => {
+      localStorage.setItem("cookie_consent", "essential");
+      cookieBanner.hidden = true;
+    };
+  }
+  const cookieSettingsLink = $("#cookie-settings-link");
+  if (cookieSettingsLink) {
+    cookieSettingsLink.onclick = e => {
+      e.preventDefault();
+      cookieBanner.hidden = false;
+    };
+  }
 }
 
-// ---- Darkroom Engineering Lenis Smooth Scroll ----
+// ---- Lenis Smooth Scroll ----
 let lenis;
 if (typeof Lenis !== "undefined") {
   lenis = new Lenis({
@@ -810,7 +572,6 @@ if (typeof Lenis !== "undefined") {
   });
   window.lenis = lenis;
 
-  // Intercept all internal anchor links for smooth scrolling
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
       const targetId = this.getAttribute('href');
@@ -826,43 +587,21 @@ if (typeof Lenis !== "undefined") {
       }
     });
   });
-
-  // Lenis scroll listener
 }
 
-// ---- Initialize All Systems ----
-document.addEventListener("DOMContentLoaded", () => {
-  initCockpitStartup();
-  initScrollReveal();
+// ---- Initialize All Active Systems ----
+function initAll() {
   initSplineScene();
-  initMagneticButtons();
-  initBentoCardInteractions();
   initCategories();
   render(cars);
-  initHeroParallax();
   initInspectorTabs();
   initFinanceCalculator();
   initTradeScanner();
-  initReviewsMarquee();
   updateHours();
+}
 
-  const heroLiveBadge = $("#hero-live-badge");
-  if (heroLiveBadge) {
-    heroLiveBadge.textContent = `${cars.length} Gekeurde Occasions Direct Beschikbaar`;
-  }
-});
-
-// Immediate invocation in case DOM is already ready
-initCockpitStartup();
-initScrollReveal();
-initSplineScene();
-initMagneticButtons();
-initBentoCardInteractions();
-initCategories();
-render(cars);
-initHeroParallax();
-initInspectorTabs();
-initFinanceCalculator();
-initTradeScanner();
-initReviewsMarquee();
-updateHours();
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", initAll);
+} else {
+  initAll();
+}

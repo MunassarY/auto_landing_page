@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>AAUTO'S · Occasions in Alphen aan den Rijn | Gekozen Om Te Overtuigen</title>
   <meta name="description" content="Occasions in Alphen aan den Rijn. 64-punten gecontroleerd, 100% NAP tellerstand en transparante all-in prijzen aan de Prinses Margrietlaan 5.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
 
   <!-- Structured Data (AutoDealer & LocalBusiness) -->
@@ -35,171 +38,128 @@
 <body>
   <a class="skip" href="#aanbod">Direct naar het autoaanbod</a>
 
-  <!-- ========================================================================
-       RoyalCar-Inspired Two-Cars Hero Section Frame with "Lights On" Experience
-       ======================================================================== -->
-  <div class="hero-royal-stage">
-    <section class="hero-royal-box" aria-labelledby="hero-title">
-      
-      <!-- Studio Center Radial Glow (Animates on with background lights) -->
-      <div class="hero-center-glow" aria-hidden="true"></div>
+  <!-- Top Navigation -->
+  <header class="site-header">
+    <nav class="royal-nav" id="nav" aria-label="Hoofdmenu">
+      <div class="royal-brand-lockup">
+        <a class="royal-brand" href="/" aria-label="AAUTO'S Home">AAUTO'S</a>
+        <span class="royal-tagline">Gekozen Om Te Overtuigen</span>
+      </div>
+      <div class="royal-links" id="nav-links">
+        <a href="#aanbod">Aanbod</a>
+        <a href="#studio3d">3D Studio</a>
+        <a href="#categorieen">Categorieën</a>
+        <a href="#zekerheden">Zekerheden</a>
+        <a href="#werkplaats">Werkplaats</a>
+        <a href="#tools">Inruil &amp; Lease</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <div class="royal-nav-actions">
+        <a class="royal-nav-btn inline-arrow-link" href="#contact"><span class="chevron" aria-hidden="true">&rsaquo;</span> Plan een Proefrit</a>
+        <button class="menu-btn" type="button" aria-expanded="false" aria-controls="nav-links">Menu</button>
+      </div>
+    </nav>
+  </header>
 
-      <!-- Initial Dark Studio Overlay (Fades out when background lights turn on) -->
-      <div class="hero-dark-overlay" aria-hidden="true"></div>
-
-      <!-- Ambient Specular Spotlight Follower -->
-      <div class="hero-spotlight" aria-hidden="true"></div>
-
-      <!-- Royal Clean Top Navigation -->
-      <nav class="royal-nav" aria-label="Hoofdmenu">
-        <a class="royal-brand" href="/" aria-label="AAUTO'S Home">
-          <span class="royal-slashes">//</span> AAUTO'S
-        </a>
-        <div class="royal-links">
-          <a href="#aanbod">Aanbod</a>
-          <a href="#studio3d">3D Studio</a>
-          <a href="#categorieen">Categorieën</a>
-          <a href="#zekerheden">Zekerheden</a>
-          <a href="#werkplaats">Werkplaats</a>
-          <a href="#tools">Inruil &amp; Lease</a>
-          <a href="#contact">Contact</a>
-        </div>
-        <div style="display:flex;align-items:center;gap:12px">
-          <a class="royal-nav-btn" href="#contact">Plan een Proefrit</a>
-          <button class="menu-btn" aria-expanded="false" aria-controls="nav">Menu</button>
-        </div>
-      </nav>
-
-      <!-- Headline, subtitle and CTA (CTA sits centered between the two cars) -->
-      <div class="hero-copy">
-        <h1 id="hero-title" class="hero-headline">
-          <span class="hl-light">Premium occasions.</span>
-          <span class="hl-dark">Zorgvuldig geselecteerd.</span>
-        </h1>
-        <p class="hero-sub">64-punten gecontroleerd, 100% NAP en transparante all-in prijzen in Alphen aan den Rijn.</p>
-        <div class="hero-center-cta">
-          <button class="hero-pill-btn" onclick="if(window.lenis){window.lenis.scrollTo('#aanbod',{offset:-30,duration:1.2})}else{document.getElementById('aanbod').scrollIntoView({behavior:'smooth'})}">
-            Bekijk Occasions <span>&rarr;</span>
-          </button>
-        </div>
+  <main>
+    <!-- Hero Section (Full-Bleed Photography + 60px Light Display Heading Below) -->
+    <section class="hero-section hero-showcase" aria-labelledby="hero-title">
+      <div class="hero-media">
+        <img class="hero-img" src="assets/cars/volvo-right.jpg" alt="Volvo XC60 Momentum AWD bij AAUTO'S Alphen aan den Rijn" width="1600" height="1200" fetchpriority="high" decoding="async" />
       </div>
 
-      <!-- Symmetrical Two-Cars Framing Stage -->
-      <div class="hero-cars-stage">
-        <!-- Car 1 (Left): VW Golf Cabriolet -->
-        <div class="hero-car hero-car-left">
-          <div class="car-shadow" aria-hidden="true"></div>
-          <div class="hero-car-wrap">
-            <img class="hero-car-img" src="car1-cutout.png" alt="Volkswagen Golf Cabriolet AAUTO'S" />
-            
-            <!-- Soft Light Beams (Cone Gradients pointing toward center) -->
-            <div class="car-light-beam beam-golf-main" aria-hidden="true"></div>
-            <div class="car-light-beam beam-golf-sec" aria-hidden="true"></div>
-
-            <!-- Headlight Glows (Radial Gradient White/Warm-White) -->
-            <div class="headlight-glow glow-golf-main" aria-hidden="true"></div>
-            <div class="headlight-glow glow-golf-sec" aria-hidden="true"></div>
-          </div>
-        </div>
-
-        <!-- Car 2 (Right): Volvo XC60 -->
-        <div class="hero-car hero-car-right">
-          <div class="car-shadow" aria-hidden="true"></div>
-          <div class="hero-car-wrap">
-            <img class="hero-car-img" src="car2-cutout.png" alt="Volvo XC60 Momentum AWD AAUTO'S" />
-            
-            <!-- Soft Light Beams (Cone Gradients pointing toward center) -->
-            <div class="car-light-beam beam-volvo-main" aria-hidden="true"></div>
-            <div class="car-light-beam beam-volvo-sec" aria-hidden="true"></div>
-
-            <!-- Headlight Glows (Radial Gradient White/Warm-White) -->
-            <div class="headlight-glow glow-volvo-main" aria-hidden="true"></div>
-            <div class="headlight-glow glow-volvo-sec" aria-hidden="true"></div>
-          </div>
+      <div class="hero-copy">
+        <h1 id="hero-title" class="display-heading hero-headline">
+          <span>Premium occasions.</span>
+          <span>Zorgvuldig geselecteerd.</span>
+        </h1>
+        <p class="hero-sub">64-punten gecontroleerd, 100% NAP tellerstand en transparante all-in prijzen in Alphen aan den Rijn.</p>
+        <div class="hero-center-cta">
+          <a href="#aanbod" class="inline-arrow-link hero-cta-link">
+            <span class="chevron" aria-hidden="true">&rsaquo;</span> Bekijk Occasions
+          </a>
         </div>
       </div>
     </section>
-  </div>
 
-  <main>
-    <!-- Floating Search Dock (Integrated Directly Below Hero Box) -->
-    <div class="search-dock-wrapper">
-      <form id="search" class="search-dock" aria-label="Zoek een occasion">
-        <div class="search-field">
-          <label for="search-make">Merk</label>
-          <select id="search-make" name="make">
-            <option value="">Alle merken</option>
-          </select>
-        </div>
-        <div class="search-field">
-          <label for="search-model">Model</label>
-          <select id="search-model" name="model">
-            <option value="">Alle modellen</option>
-          </select>
-        </div>
-        <div class="search-field">
-          <label for="search-price">Max. Budget</label>
-          <select id="search-price" name="price">
-            <option value="">Geen maximum</option>
-          </select>
-        </div>
-        <div class="search-field">
-          <label for="search-fuel">Brandstof</label>
-          <select id="search-fuel" name="fuel">
-            <option value="">Alle brandstoffen</option>
-          </select>
-        </div>
-        <button class="btn btn-submit" type="submit">
-          Toon <span id="count">…</span> auto's
-        </button>
-      </form>
-    </div>
+    <!-- Search & Filter Bar (Fog Band) -->
+    <section class="search-section section-band-fog" aria-label="Filter het aanbod">
+      <div class="search-dock-wrapper">
+        <form id="search" class="search-dock" aria-label="Zoek een occasion">
+          <div class="search-field">
+            <label for="search-make">Merk</label>
+            <select id="search-make" name="make">
+              <option value="">Alle merken</option>
+            </select>
+          </div>
+          <div class="search-field">
+            <label for="search-model">Model</label>
+            <select id="search-model" name="model">
+              <option value="">Alle modellen</option>
+            </select>
+          </div>
+          <div class="search-field">
+            <label for="search-price">Max. Budget</label>
+            <select id="search-price" name="price">
+              <option value="">Geen maximum</option>
+            </select>
+          </div>
+          <div class="search-field">
+            <label for="search-fuel">Brandstof</label>
+            <select id="search-fuel" name="fuel">
+              <option value="">Alle brandstoffen</option>
+            </select>
+          </div>
+          <button class="btn btn-submit" type="submit">
+            Toon <span id="count">…</span> auto's
+          </button>
+        </form>
+      </div>
+    </section>
 
-    <!-- Bento 1: Net Binnen (Vehicles Grid) -->
-    <section id="aanbod" class="section reveal-on-scroll">
+    <!-- Aanbod (Vehicles Editorial List) -->
+    <section id="aanbod" class="section">
       <div class="section-head">
         <span class="section-tag">Collectie</span>
         <h2>Net Binnen in Alphen</h2>
         <p class="subhead">Onze meest recent ingeruilde en klaargemaakte occasions, direct uit eigen voorraad.</p>
       </div>
-      <div id="cars" class="bento-cars-grid stagger-items">
-        <!-- Rendered dynamically by main.js with real dealer images -->
+      <div id="cars" class="bento-cars-grid">
+        <!-- Rendered dynamically by js/main.js -->
       </div>
     </section>
 
     <!-- Spline 3D Interactive Car Studio -->
-    <section id="studio3d" class="section reveal-on-scroll">
-      <div class="section-head center">
-        <span class="section-tag">3D Studio Experience</span>
-        <h2>Spline 3D Occasion Studio</h2>
-        <p class="subhead">Inspecteer auto's in 360° realtime 3D rendering. Draai, zoom en beleef elk detail alsof u er omheen loopt.</p>
-      </div>
-
-      <div class="spline-showcase-box">
-        <!-- Spline 3D Canvas -->
-        <canvas id="canvas3d"></canvas>
-
-        <div id="spline-loader" class="spline-overlay-info">
-          <div class="spline-hint-badge">
-            <span class="pulse-dot"></span>
-            <span id="spline-status-text">Spline 3D Runtime Actief</span>
-          </div>
-          <p class="spline-instructions">
-            Sleep met uw muis of vinger om de 3D auto 360° te roteren
-          </p>
+    <section id="studio3d" class="section section-band-fog">
+      <div class="section-inner">
+        <div class="section-head center">
+          <span class="section-tag">3D Studio Experience</span>
+          <h2>Spline 3D Occasion Studio</h2>
+          <p class="subhead">Inspecteer auto's in 360° realtime 3D rendering. Draai, zoom en beleef elk detail alsof u er omheen loopt.</p>
         </div>
 
-        <div class="spline-controls-pill">
-          <button class="spline-ctrl-btn" id="spline-reset-btn" type="button">↺ Reset Stand</button>
-          <span style="color:var(--text-muted);font-size:12px;display:inline-flex;align-items:center;gap:6px">
-            <span>🖱️</span> 360° Interactief
-          </span>
+        <div class="spline-showcase-box">
+          <canvas id="canvas3d"></canvas>
+
+          <div id="spline-loader" class="spline-overlay-info">
+            <div class="spline-hint-badge">
+              <span id="spline-status-text">Spline 3D Runtime Actief</span>
+            </div>
+            <p class="spline-instructions">
+              Sleep met uw muis of vinger om de 3D auto 360° te roteren
+            </p>
+          </div>
+
+          <div class="spline-controls-pill">
+            <button class="spline-ctrl-btn" id="spline-reset-btn" type="button">Reset Stand</button>
+            <span class="spline-meta-text">360° Interactief</span>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- Bento 2: Browse by Need (Categories) -->
-    <section id="categorieen" class="section reveal-on-scroll">
+    <!-- Categorieën (Browse by Need) -->
+    <section id="categorieen" class="section">
       <div class="section-head">
         <span class="section-tag">Segmenten</span>
         <h2>Kies op Categorie</h2>
@@ -207,167 +167,155 @@
       </div>
 
       <div class="bento-cat-grid">
-        <div class="cat-bento-card cat-col-7" data-cat="onder-10k">
-          <div>
-            <div class="cat-icon-badge">💶</div>
+        <div class="cat-bento-card" data-cat="onder-10k" role="button" tabindex="0" aria-label="Filter op Onder €10.000">
+          <div class="cat-main">
             <h3 class="cat-title">Onder €10.000</h3>
             <p class="cat-desc">Voordelige, uiterst betrouwbare hatchbacks met lage vaste lasten en zuinig brandstofverbruik.</p>
           </div>
           <div class="cat-bottom">
             <span class="cat-count-pill" id="count-onder-10k">… auto's</span>
-            <span style="font-weight:700;color:var(--text-secondary);font-size:14px">Bekijk selectie &rarr;</span>
+            <span class="inline-arrow-link"><span class="chevron" aria-hidden="true">&rsaquo;</span> Bekijk selectie</span>
           </div>
         </div>
 
-        <div class="cat-bento-card cat-col-5" data-cat="gezinsauto">
-          <div>
-            <div class="cat-icon-badge">👨‍👩‍👧‍👦</div>
+        <div class="cat-bento-card" data-cat="gezinsauto" role="button" tabindex="0" aria-label="Filter op Gezinsauto's">
+          <div class="cat-main">
             <h3 class="cat-title">Gezinsauto's</h3>
             <p class="cat-desc">Ruime stationwagons en 5-deurs modellen met veel kofferruimte en ISOFIX.</p>
           </div>
           <div class="cat-bottom">
             <span class="cat-count-pill" id="count-gezinsauto">… auto's</span>
-            <span style="font-weight:700;color:var(--text-secondary);font-size:14px">Bekijk selectie &rarr;</span>
+            <span class="inline-arrow-link"><span class="chevron" aria-hidden="true">&rsaquo;</span> Bekijk selectie</span>
           </div>
         </div>
 
-        <div class="cat-bento-card cat-col-4" data-cat="automaat">
-          <div>
-            <div class="cat-icon-badge">🕹️</div>
+        <div class="cat-bento-card" data-cat="automaat" role="button" tabindex="0" aria-label="Filter op Automaat">
+          <div class="cat-main">
             <h3 class="cat-title">Automaat</h3>
             <p class="cat-desc">Zorgeloos en ontspannen rijden zonder schakelen in file en stad.</p>
           </div>
           <div class="cat-bottom">
             <span class="cat-count-pill" id="count-automaat">… auto's</span>
-            <span style="font-weight:700;color:var(--text-secondary);font-size:14px">Bekijk &rarr;</span>
+            <span class="inline-arrow-link"><span class="chevron" aria-hidden="true">&rsaquo;</span> Bekijk selectie</span>
           </div>
         </div>
 
-        <div class="cat-bento-card cat-col-4" data-cat="hybride-elektrisch">
-          <div>
-            <div class="cat-icon-badge">⚡</div>
+        <div class="cat-bento-card" data-cat="hybride-elektrisch" role="button" tabindex="0" aria-label="Filter op Hybride en Elektrisch">
+          <div class="cat-main">
             <h3 class="cat-title">Hybride &amp; Elektrisch</h3>
             <p class="cat-desc">Klaar voor de toekomst met minimale uitstoot en lage verbruikskosten.</p>
           </div>
           <div class="cat-bottom">
             <span class="cat-count-pill" id="count-hybride">… auto's</span>
-            <span style="font-weight:700;color:var(--text-secondary);font-size:14px">Bekijk &rarr;</span>
+            <span class="inline-arrow-link"><span class="chevron" aria-hidden="true">&rsaquo;</span> Bekijk selectie</span>
           </div>
         </div>
 
-        <div class="cat-bento-card cat-col-4" data-cat="bedrijfswagens">
-          <div>
-            <div class="cat-icon-badge">🚐</div>
+        <div class="cat-bento-card" data-cat="bedrijfswagens" role="button" tabindex="0" aria-label="Filter op Bedrijfswagens">
+          <div class="cat-main">
             <h3 class="cat-title">Bedrijfswagens</h3>
             <p class="cat-desc">Bestelbussen, dubbele cabines en grijs kenteken voor ondernemers.</p>
           </div>
           <div class="cat-bottom">
             <span class="cat-count-pill" id="count-bedrijfswagens">… auto's</span>
-            <span style="font-weight:700;color:var(--text-secondary);font-size:14px">Bekijk &rarr;</span>
+            <span class="inline-arrow-link"><span class="chevron" aria-hidden="true">&rsaquo;</span> Bekijk selectie</span>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Bento 3: Showroom & Real Workshop (Section 4.5 & 4.8) -->
-    <section id="zekerheden" class="section reveal-on-scroll">
-      <div class="section-head">
-        <span class="section-tag">Zekerheden</span>
-        <h2>Onze Showroom &amp; Werkplaats</h2>
-        <p class="subhead">Gevestigd aan de Prinses Margrietlaan 5 in Alphen aan den Rijn met eigen hefbruggen en diagnoseapparatuur.</p>
-      </div>
-
-      <div class="bento-trust-grid stagger-items">
-        <!-- Dealership Exterior Card -->
-        <div class="trust-card col-6">
-          <img class="workshop-bento-img" src="assets/dealership-outside.jpg" alt="AAUTO'S showroom pand aan de Prinses Margrietlaan 5 Alphen aan den Rijn" />
-          <h3 style="font-size:24px;margin-bottom:8px">Showroom &amp; Buitenterrein</h3>
-          <p style="color:var(--text-secondary);font-size:14px;line-height:1.6;margin:0">
-            Bij Ingang 5 vindt u ons overzichtelijke buitenterrein en showroom. Altijd een gevarieerde voorraad direct rijklare occasions van betrouwbare merken.
-          </p>
+    <!-- Zekerheden: Showroom & Real Workshop -->
+    <section id="zekerheden" class="section section-band-fog">
+      <div class="section-inner">
+        <div class="section-head">
+          <span class="section-tag">Zekerheden</span>
+          <h2>Onze Showroom &amp; Werkplaats</h2>
+          <p class="subhead">Gevestigd aan de Prinses Margrietlaan 5 in Alphen aan den Rijn met eigen hefbruggen en diagnoseapparatuur.</p>
         </div>
 
-        <!-- Dealership Workshop Card -->
-        <div id="werkplaats" class="trust-card col-6">
-          <img class="workshop-bento-img" src="assets/dealership-inside.jpg" alt="Moderne werkplaats van AAUTO'S met hefbruggen en diagnoseapparatuur" />
-          <h3 style="font-size:24px;margin-bottom:8px">Eigen Garage &amp; APK</h3>
-          <p style="color:var(--text-secondary);font-size:14px;line-height:1.6;margin:0">
-            Uitgerust met professionele hefbruggen, bandenservice en gecertificeerde monteurs. Iedere occasion krijgt hier een grondige 64-punten controle voor aflevering.
-          </p>
-        </div>
+        <div class="bento-trust-grid">
+          <div class="trust-card col-6">
+            <img class="workshop-bento-img" src="assets/dealership-outside.jpg" alt="AAUTO'S showroom pand aan de Prinses Margrietlaan 5 Alphen aan den Rijn" width="1600" height="900" loading="lazy" decoding="async" />
+            <h3 class="card-heading">Showroom &amp; Buitenterrein</h3>
+            <p class="card-copy">
+              Bij Ingang 5 vindt u ons overzichtelijke buitenterrein en showroom. Altijd een gevarieerde voorraad direct rijklare occasions van betrouwbare merken.
+            </p>
+          </div>
 
-        <!-- Interactive 64-Point Inspection Card -->
-        <div class="trust-card col-8">
-          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">
-            <div>
-              <span class="section-tag" style="margin-bottom:4px">Eigen Werkplaats</span>
-              <h3 style="font-size:24px;margin:4px 0 0">64-Punten Kwaliteitsgarantie</h3>
+          <div id="werkplaats" class="trust-card col-6">
+            <img class="workshop-bento-img" src="assets/dealership-inside.jpg" alt="Moderne werkplaats van AAUTO'S met hefbruggen en diagnoseapparatuur" width="1600" height="900" loading="lazy" decoding="async" />
+            <h3 class="card-heading">Eigen Garage &amp; APK</h3>
+            <p class="card-copy">
+              Uitgerust met professionele hefbruggen, bandenservice en gecertificeerde monteurs. Iedere occasion krijgt hier een grondige 64-punten controle voor aflevering.
+            </p>
+          </div>
+
+          <div class="trust-card col-8">
+            <div class="inspection-head">
+              <div>
+                <span class="section-tag">Eigen Werkplaats</span>
+                <h3 class="card-heading">64-Punten Kwaliteitsgarantie</h3>
+              </div>
+              <span class="inspection-badge">100% Gekeurd Rijklaar</span>
             </div>
-            <span style="font-family:var(--font-mono);font-size:13px;color:var(--accent-wa);background:rgba(34,197,94,0.1);padding:4px 12px;border-radius:var(--radius-full);border:1px solid rgba(34,197,94,0.25)">
-              100% Gekeurd Rijklaar
-            </span>
+
+            <div class="inspector-tabs" role="tablist" aria-label="64-punten inspectie onderdelen">
+              <button id="tab-remmen" class="inspector-tab-btn active" type="button" data-tab="remmen" role="tab" aria-selected="true" aria-controls="inspector-content">Remmen &amp; Banden</button>
+              <button id="tab-motor" class="inspector-tab-btn" type="button" data-tab="motor" role="tab" aria-selected="false" aria-controls="inspector-content">Motor &amp; Aandrijving</button>
+              <button id="tab-diagnose" class="inspector-tab-btn" type="button" data-tab="diagnose" role="tab" aria-selected="false" aria-controls="inspector-content">Computerdiagnose</button>
+              <button id="tab-nap" class="inspector-tab-btn" type="button" data-tab="nap" role="tab" aria-selected="false" aria-controls="inspector-content">100% NAP Tellerrapport</button>
+            </div>
+
+            <div id="inspector-content" class="inspector-panel" role="tabpanel" aria-labelledby="tab-remmen" tabindex="0">
+              <strong>✓ Remsysteem &amp; Bandenprofiel:</strong> Iedere auto heeft minimaal 4.0 mm profieldiepte op alle banden (ruim boven de wettelijke 1.6 mm norm). Remschijven, remblokken en remvloeistof kookpunt worden op de hefbrug opgemeten.
+            </div>
+
+            <ul class="checklist-items">
+              <li class="check-item">
+                <span class="check-icon">✓</span>
+                <div><b>Min. 6 Mnd APK:</b> Of desgewenst afgeleverd met een geheel nieuwe APK.</div>
+              </li>
+              <li class="check-item">
+                <span class="check-icon">✓</span>
+                <div><b>Vloeistoffen &amp; Olie:</b> Gecontroleerd en op peil gebracht met gecertificeerde specificaties.</div>
+              </li>
+              <li class="check-item">
+                <span class="check-icon">✓</span>
+                <div><b>Volledig Schadevrij:</b> Chassis en carrosserie structureel gecontroleerd.</div>
+              </li>
+              <li class="check-item">
+                <span class="check-icon">✓</span>
+                <div><b>Geen Verborgen Kosten:</b> Alle prijzen zijn rijklaar inclusief tenaamstelling.</div>
+              </li>
+            </ul>
           </div>
 
-          <div class="inspector-tabs" role="tablist">
-            <button class="inspector-tab-btn active" data-tab="remmen" role="tab" aria-selected="true">Remmen &amp; Banden</button>
-            <button class="inspector-tab-btn" data-tab="motor" role="tab" aria-selected="false">Motor &amp; Aandrijving</button>
-            <button class="inspector-tab-btn" data-tab="diagnose" role="tab" aria-selected="false">Computerdiagnose</button>
-            <button class="inspector-tab-btn" data-tab="nap" role="tab" aria-selected="false">100% NAP Tellerrapport</button>
-          </div>
-
-          <div id="inspector-content" class="inspector-panel" role="tabpanel">
-            <strong>✓ Remsysteem &amp; Bandenprofiel:</strong> Iedere auto heeft minimaal 4.0 mm profieldiepte op alle banden (ruim boven de wettelijke 1.6 mm norm). Remschijven, remblokken en remvloeistof kookpunt worden op de hefbrug opgemeten.
-          </div>
-
-          <ul class="checklist-items">
-            <li class="check-item">
-              <span class="check-icon">✓</span>
-              <div><b>Min. 6 Mnd APK:</b> Of desgewenst afgeleverd met een geheel nieuwe APK.</div>
-            </li>
-            <li class="check-item">
-              <span class="check-icon">✓</span>
-              <div><b>Vloeistoffen &amp; Olie:</b> Gecontroleerd en op peil gebracht met gecertificeerde specificaties.</div>
-            </li>
-            <li class="check-item">
-              <span class="check-icon">✓</span>
-              <div><b>Volledig Schadevrij:</b> Chassis en carrosserie structureel gecontroleerd.</div>
-            </li>
-            <li class="check-item">
-              <span class="check-icon">✓</span>
-              <div><b>Geen Verborgen Kosten:</b> Alle prijzen zijn rijklaar inclusief tenaamstelling.</div>
-            </li>
-          </ul>
-        </div>
-
-        <div class="trust-card col-4">
-          <h3 style="font-size:22px;margin-bottom:8px">Wettelijke Garantie</h3>
-          <p style="color:var(--text-secondary);font-size:14px;line-height:1.6;margin-bottom:14px">
-            Conform Nederlands consumentenrecht (art. 7:17 BW). U mag verwachten dat de auto bij aflevering in degelijke staat verkeert voor normaal gebruik.
-          </p>
-          <div style="padding:12px;background:rgba(255,255,255,0.03);border:1px solid var(--border-subtle);border-radius:var(--radius-md)">
-            <b style="font-size:13px;color:#fff">AutoTrust Garantie:</b>
-            <p style="margin:4px 0 0;font-size:12px;color:var(--text-secondary)">Optioneel uitbreidbaar tot 24 maanden met pechhulp.</p>
+          <div class="trust-card col-4">
+            <h3 class="card-heading">Wettelijke Garantie</h3>
+            <p class="card-copy">
+              Conform Nederlands consumentenrecht (art. 7:17 BW). U mag verwachten dat de auto bij aflevering in degelijke staat verkeert voor normaal gebruik.
+            </p>
+            <div class="warranty-note">
+              <b>AutoTrust Garantie:</b>
+              <p>Optioneel uitbreidbaar tot 24 maanden met pechhulp.</p>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Bento 4: Interactive Tools -->
-    <section id="tools" class="section reveal-on-scroll">
+    <!-- Interactive Tools (Inruil & Lease) -->
+    <section id="tools" class="section">
       <div class="section-head">
         <span class="section-tag">Direct Berekenen</span>
         <h2>Handige Online Tools</h2>
         <p class="subhead">Bereken uw inruilwaarde via officiële RDW-data of bereken uw maandelijkse financiering.</p>
       </div>
 
-      <div class="tools-split stagger-items">
-        <!-- Live RDW Inruil Tool -->
+      <div class="tools-split">
         <div id="inruilen" class="tool-card">
-          <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
-            <span style="font-size:24px">🔄</span>
-            <h3 style="font-size:24px">Wat is uw auto waard?</h3>
-          </div>
-          <p style="color:var(--text-secondary);font-size:14px;margin-bottom:24px">
+          <h3 class="card-heading">Wat is uw auto waard?</h3>
+          <p class="card-copy tool-intro">
             Vul uw kenteken in. Wij halen direct de officiële voertuiggegevens op via het RDW Open Data register.
           </p>
 
@@ -378,8 +326,7 @@
                 <span class="slider-val-badge">Live RDW Koppeling</span>
               </label>
               <div class="plate-embossed-wrapper" id="plate-wrapper">
-                <input id="trade-plate" class="input-dark plate-dark plate-input" name="plate" placeholder="XX-123-X" maxlength="10" autocomplete="off" required />
-                <div class="rdw-laser-beam" aria-hidden="true"></div>
+                <input id="trade-plate" class="input-dark plate-input" name="plate" placeholder="XX-123-X" maxlength="10" autocomplete="off" required />
               </div>
             </div>
 
@@ -393,20 +340,16 @@
               <input id="trade-contact" class="input-dark" name="contact" placeholder="Voor een vrijblijvend voorstel" required />
             </div>
 
-            <button class="btn btn-primary" style="width:100%;margin-top:10px" type="submit">
-              Vraag inruilwaarde op &rarr;
+            <button class="btn btn-primary btn-block" type="submit">
+              Vraag inruilwaarde op
             </button>
-            <p class="status" style="margin-top:12px;font-size:14px;color:var(--accent-wa)" role="status"></p>
+            <p class="status" role="status"></p>
           </form>
         </div>
 
-        <!-- Finance Calculator with Fluid Sliders -->
         <div class="tool-card">
-          <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
-            <span style="font-size:24px">💶</span>
-            <h3 style="font-size:24px">Financieringscalculator</h3>
-          </div>
-          <p style="color:var(--text-secondary);font-size:14px;margin-bottom:24px">
+          <h3 class="card-heading">Financieringscalculator</h3>
+          <p class="card-copy tool-intro">
             Reken eenvoudig uit wat een occasion maandelijks kost met onze interactieve rekenmodule.
           </p>
 
@@ -439,100 +382,100 @@
             </div>
 
             <div class="calc-output-box">
-              <span style="font-size:12px;text-transform:uppercase;color:var(--text-muted);font-weight:700">Indicatief maandbedrag</span>
+              <span class="calc-output-label">Indicatief maandbedrag</span>
               <div class="calc-monthly-num" id="monthly">€ 0</div>
-              <span style="font-size:12px;color:var(--text-secondary)">o.b.v. 7,9% debetrentevoet</span>
+              <span class="calc-output-note">o.b.v. 7,9% debetrentevoet</span>
             </div>
           </form>
         </div>
       </div>
     </section>
 
-    <!-- Bento 5: Google Reviews -->
-    <section class="section reveal-on-scroll">
-      <div class="section-head center">
-        <span class="section-tag">Reviews</span>
-        <h2>Wat Klanten Zeggen</h2>
-        <div style="display:inline-flex;align-items:center;gap:10px;margin-top:8px">
-          <span style="color:#FBBF24;font-size:20px">★★★★★</span>
-          <b style="font-family:var(--font-mono);font-size:16px">4.8 / 5.0</b>
-          <span style="color:var(--text-muted);font-size:14px">(142 geverifieerde Google reviews)</span>
-        </div>
-      </div>
-
-      <div class="reviews-slider-track">
-        <div class="review-card">
-          <div>
-            <div class="review-stars">★★★★★</div>
-            <p class="review-text">"Prettig en professioneel geholpen bij AAUTO'S aan de Prinses Margrietlaan. Mijn auto gekocht met verse APK en beurt. Alle afspraken nagekomen!"</p>
+    <!-- Google Reviews -->
+    <section class="section section-band-fog">
+      <div class="section-inner">
+        <div class="section-head center">
+          <span class="section-tag">Reviews</span>
+          <h2>Wat Klanten Zeggen</h2>
+          <div class="reviews-summary">
+            <span class="review-stars-summary" aria-hidden="true">★★★★★</span>
+            <b class="review-score">4.8 / 5.0</b>
+            <span class="review-count">(142 geverifieerde Google reviews)</span>
           </div>
-          <div class="review-author">Mark van der Meer · Alphen a/d Rijn</div>
         </div>
 
-        <div class="review-card">
-          <div>
-            <div class="review-stars">★★★★★</div>
-            <p class="review-text">"Heel blij met onze aankoop. Eerlijke inruilprijs gekregen voor onze oude auto en binnen twee dagen al rijklaar gemaakt."</p>
+        <div class="reviews-slider-track">
+          <div class="review-card">
+            <div>
+              <div class="review-stars" aria-label="5 van 5 sterren">★★★★★</div>
+              <p class="review-text">"Prettig en professioneel geholpen bij AAUTO'S aan de Prinses Margrietlaan. Mijn auto gekocht met verse APK en beurt. Alle afspraken nagekomen!"</p>
+            </div>
+            <div class="review-author">Mark van der Meer · Alphen a/d Rijn</div>
           </div>
-          <div class="review-author">Sanne de Jong · Gouda</div>
-        </div>
 
-        <div class="review-card">
-          <div>
-            <div class="review-stars">★★★★★</div>
-            <p class="review-text">"Geen opdringerige verkooppraatjes, maar nuchtere vakmensen met verstand van auto's. Snelle communicatie via WhatsApp!"</p>
+          <div class="review-card">
+            <div>
+              <div class="review-stars" aria-label="5 van 5 sterren">★★★★★</div>
+              <p class="review-text">"Heel blij met onze aankoop. Eerlijke inruilprijs gekregen voor onze oude auto en binnen twee dagen al rijklaar gemaakt."</p>
+            </div>
+            <div class="review-author">Sanne de Jong · Gouda</div>
           </div>
-          <div class="review-author">Dennis Kuipers · Bodegraven</div>
-        </div>
 
-        <div class="review-card">
-          <div>
-            <div class="review-stars">★★★★★</div>
-            <p class="review-text">"Topservice! Duidelijk overzicht van de 64-punten inspectie gekregen en de kilometerstand klopte tot op de kilometer met het NAP rapport."</p>
+          <div class="review-card">
+            <div>
+              <div class="review-stars" aria-label="5 van 5 sterren">★★★★★</div>
+              <p class="review-text">"Geen opdringerige verkooppraatjes, maar nuchtere vakmensen met verstand van auto's. Snelle communicatie via WhatsApp!"</p>
+            </div>
+            <div class="review-author">Dennis Kuipers · Bodegraven</div>
           </div>
-          <div class="review-author">Robbert van Vliet · Leiden</div>
+
+          <div class="review-card">
+            <div>
+              <div class="review-stars" aria-label="5 van 5 sterren">★★★★★</div>
+              <p class="review-text">"Topservice! Duidelijk overzicht van de 64-punten inspectie gekregen en de kilometerstand klopte tot op de kilometer met het NAP rapport."</p>
+            </div>
+            <div class="review-author">Robbert van Vliet · Leiden</div>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- Bento 6: Showroom & Contact -->
-    <section id="contact" class="section reveal-on-scroll">
+    <!-- Showroom & Contact -->
+    <section id="contact" class="section">
       <div class="section-head">
         <span class="section-tag">Bezoek Ons</span>
         <h2>Kom Langs in Onze Showroom</h2>
         <p class="subhead">Gelegen aan de Prinses Margrietlaan 5 in Alphen aan den Rijn. De koffie staat klaar.</p>
       </div>
 
-      <div class="contact-bento-grid stagger-items">
+      <div class="contact-bento-grid">
         <div class="tool-card">
           <div id="open-status-box" class="open-beacon yes">
-            <span class="pulse-dot"></span>
             <span id="open-status-text">Nu geopend</span>
           </div>
 
-          <address style="font-style:normal;font-size:18px;margin:16px 0;line-height:1.6">
+          <address class="dealer-address">
             <strong>AAUTO'S B.V.</strong><br>
             Prinses Margrietlaan 5 (Ingang 5)<br>
             2404 HA Alphen aan den Rijn<br>
-            <span style="font-size:15px;color:var(--text-secondary)">Telefoon: 06 - 43 22 55 92 · E-mail: info@aautos.nl</span>
+            <span class="dealer-contact-line">Telefoon: 06 - 43 22 55 92 · E-mail: info@aautos.nl</span>
           </address>
 
           <table class="hours-table" id="hours" aria-label="Openingstijden"></table>
 
-          <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:24px">
-            <a class="btn btn-primary" href="https://www.google.com/maps/dir/?api=1&destination=Prinses+Margrietlaan+5,+2404+HA+Alphen+aan+den+Rijn" target="_blank" rel="noopener">
-              Routebeschrijving &rarr;
+          <div class="contact-actions">
+            <a class="inline-arrow-link" href="https://www.google.com/maps/dir/?api=1&destination=Prinses+Margrietlaan+5,+2404+HA+Alphen+aan+den+Rijn" target="_blank" rel="noopener">
+              <span class="chevron" aria-hidden="true">&rsaquo;</span> Routebeschrijving
             </a>
-            <a class="btn btn-wa" data-wa href="https://wa.me/31643225592" target="_blank" rel="noopener">
-              WhatsApp ons
+            <a class="inline-arrow-link" data-wa href="https://wa.me/31643225592" target="_blank" rel="noopener">
+              <span class="chevron" aria-hidden="true">&rsaquo;</span> WhatsApp ons
             </a>
           </div>
         </div>
 
-        <!-- Contact Form -->
         <div class="tool-card">
-          <h3 style="font-size:24px;margin-bottom:6px">Stuur ons een bericht</h3>
-          <p style="color:var(--text-secondary);font-size:14px;margin-bottom:20px">Heeft u een vraag over een occasion of wilt u een proefrit inplannen?</p>
+          <h3 class="card-heading">Stuur ons een bericht</h3>
+          <p class="card-copy tool-intro">Heeft u een vraag over een occasion of wilt u een proefrit inplannen?</p>
 
           <form id="contact-form">
             <div class="input-group">
@@ -555,49 +498,101 @@
               <textarea id="contact-msg" class="input-dark" name="msg" rows="3" placeholder="Ik wil graag meer informatie over..."></textarea>
             </div>
 
-            <button class="btn btn-primary" style="width:100%" type="submit">
-              Verstuur bericht &rarr;
+            <button class="btn btn-primary btn-block" type="submit">
+              Verstuur bericht
             </button>
-            <p class="status" style="margin-top:12px;font-size:14px;color:var(--accent-wa)" role="status"></p>
+            <p class="status" role="status"></p>
           </form>
         </div>
       </div>
     </section>
   </main>
 
-  <!-- Footer -->
+  <!-- Dark Footer Band -->
   <footer class="footer">
-    <div class="footer-inner">
-      <div>
-        <b style="color:#fff">AAUTO'S B.V.</b> · Prinses Margrietlaan 5, 2404 HA Alphen aan den Rijn · KvK: 78129034
-        <div style="margin-top:4px">© 2026 AAUTO'S B.V. Alle rechten voorbehouden. Officiële dealer van occasions.</div>
+    <div class="footer-container">
+      <div class="footer-locale-row" aria-label="Taalkeuze">
+        <a href="#nl" class="locale-item">Nederlands</a>
+        <a href="#en" class="locale-item">English</a>
+        <a href="#de" class="locale-item">Deutsch</a>
+        <a href="#fr" class="locale-item">Français</a>
       </div>
-      <div class="footer-links">
-        <a href="#zekerheden">Wettelijke garantie</a>
-        <a href="#contact">Contact</a>
-        <a href="#cookies" id="cookie-settings-link">Cookie-voorkeuren</a>
+
+      <div class="footer-grid">
+        <div class="footer-col">
+          <h4 class="footer-col-title">Direct naar</h4>
+          <ul class="footer-links-list">
+            <li><a href="#aanbod">Alle Occasions</a></li>
+            <li><a href="#studio3d">Spline 3D Studio</a></li>
+            <li><a href="#categorieen">Kies op Categorie</a></li>
+            <li><a href="#tools">Financiering Berekenen</a></li>
+            <li><a href="#inruilen">Inruilwaarde Opvragen</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4 class="footer-col-title">Zekerheden &amp; Werkplaats</h4>
+          <ul class="footer-links-list">
+            <li><a href="#zekerheden">64-Punten Inspectie</a></li>
+            <li><a href="#werkplaats">Eigen Garage &amp; APK</a></li>
+            <li><a href="#zekerheden">Wettelijke Garantie</a></li>
+            <li><a href="#zekerheden">100% NAP Tellerrapport</a></li>
+            <li><a href="#zekerheden">AutoTrust Garantie</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4 class="footer-col-title">AAUTO'S B.V.</h4>
+          <ul class="footer-links-list">
+            <li><span>Prinses Margrietlaan 5</span></li>
+            <li><span>2404 HA Alphen aan den Rijn</span></li>
+            <li><span>Ingang 5 (Showroom)</span></li>
+            <li><span>KvK: 78129034</span></li>
+            <li><a href="#contact">Routebeschrijving</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4 class="footer-col-title">Contact &amp; Openingstijden</h4>
+          <ul class="footer-links-list">
+            <li><a data-tel href="tel:+31643225592">06 - 43 22 55 92</a></li>
+            <li><a href="mailto:info@aautos.nl">info@aautos.nl</a></li>
+            <li><a data-wa href="https://wa.me/31643225592" target="_blank" rel="noopener">WhatsApp Direct</a></li>
+            <li><span>Ma – Vr: 09:00 – 18:00</span></li>
+            <li><span>Zaterdag: 10:00 – 17:00</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom-row">
+        <span>&copy; 2026 AAUTO'S B.V. Alle rechten voorbehouden. Officiële occasions in Alphen aan den Rijn.</span>
+        <div class="footer-legal-links">
+          <a href="#zekerheden">Wettelijke garantie</a>
+          <a href="#cookies" id="cookie-settings-link">Cookie-voorkeuren</a>
+          <a href="#contact">Contact</a>
+        </div>
       </div>
     </div>
   </footer>
 
   <!-- Sticky Mobile Bar -->
   <div class="mbar">
-    <a class="btn btn-secondary" data-tel href="tel:+31643225592">📞 Bellen</a>
-    <a class="btn btn-wa" data-wa href="https://wa.me/31643225592" target="_blank" rel="noopener">💬 WhatsApp</a>
+    <a class="btn btn-secondary" data-tel href="tel:+31643225592">Bellen</a>
+    <a class="btn btn-primary" data-wa href="https://wa.me/31643225592" target="_blank" rel="noopener">WhatsApp</a>
   </div>
 
   <!-- Compare Tray -->
   <div class="tray" id="tray" hidden>
-    <span id="tray-n" style="font-size:13px;font-family:var(--font-mono);color:#fff">0 van 3 gekozen</span>
-    <button class="btn btn-primary" id="tray-go">Vergelijk auto's</button>
+    <span id="tray-n" class="tray-count">0 van 3 gekozen</span>
+    <button class="btn btn-primary" id="tray-go" type="button">Vergelijk auto's</button>
   </div>
 
   <!-- Compare Modal Dialog -->
   <dialog id="cmp">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
-      <h3 style="font-size:22px">Occasions Vergelijken</h3>
+    <div class="cmp-header">
+      <h3>Occasions Vergelijken</h3>
       <form method="dialog">
-        <button class="btn btn-secondary" style="padding:6px 14px;min-height:36px">✕ Sluiten</button>
+        <button class="btn btn-secondary" type="submit">Sluiten</button>
       </form>
     </div>
     <div id="cmp-body"></div>
@@ -607,12 +602,12 @@
   <div id="cookie-banner" class="cookie-banner">
     <p>Wij gebruiken uitsluitend noodzakelijke en geanonimiseerde cookies om onze site optimaal te laten functioneren conform de AVG/GDPR.</p>
     <div class="cookie-actions">
-      <button class="btn btn-secondary" id="cookie-essential">Alleen noodzakelijk</button>
-      <button class="btn btn-primary" id="cookie-accept">Accepteren</button>
+      <button class="btn btn-secondary" id="cookie-essential" type="button">Alleen noodzakelijk</button>
+      <button class="btn btn-primary" id="cookie-accept" type="button">Accepteren</button>
     </div>
   </div>
 
-  <!-- Darkroom Engineering Lenis Smooth Scroll -->
+  <!-- Lenis Smooth Scroll & App Scripts -->
   <script src="https://unpkg.com/lenis@1.3.27/dist/lenis.min.js"></script>
   <script type="module" src="data/cars.js"></script>
   <script type="module" src="js/main.js"></script>
